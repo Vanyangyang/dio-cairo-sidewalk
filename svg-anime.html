@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人行道不是很宽敞吗…开。 | JOJO 第251话 SVG 动画</title>
+<style>
+:root { --gold: #ffd400; --ink: #12021f; --violet: #a728ff; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 14px 10px 22px;
+  color: #fff;
+  background: radial-gradient(ellipse at 50% -10%, #3b0b5e 0%, #12031f 55%, #07020d 100%);
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+}
+header { text-align: center; margin-bottom: 10px; }
+header h1 {
+  font-size: clamp(1.3rem, 3.2vw, 2.3rem); font-weight: 900; letter-spacing: .08em;
+  color: var(--gold); text-shadow: 3px 3px 0 #7a0044, 0 0 18px rgba(255, 212, 0, .45);
+}
+header p { margin-top: 4px; color: #d9b3ff; font-size: .9rem; letter-spacing: .1em; }
+.stage {
+  position: relative;
+  width: min(1280px, 96vw, calc((100vh - 200px) * 16 / 9));
+  min-width: 320px;
+  aspect-ratio: 16 / 9;
+  border: 4px solid var(--gold); border-radius: 6px; overflow: hidden;
+  background: #000;
+  box-shadow: 0 0 36px rgba(255, 212, 0, .35), 0 0 90px rgba(162, 0, 255, .45);
+}
+.stage svg { display: block; width: 100%; height: 100%; }
+svg text { paint-order: stroke fill; }
+.jp { font-family: "Yu Gothic UI", "Yu Gothic", "Meiryo", "Hiragino Sans", "Noto Sans CJK JP", "Microsoft YaHei", sans-serif; }
+.zh { font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; }
+.impact { font-family: Impact, "Arial Black", "Microsoft YaHei", sans-serif; }
+.controls, .chapters {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center;
+  width: min(1280px, 96vw); margin-top: 12px;
+}
+.controls button, .chapters button {
+  border: none; cursor: pointer; font: inherit; font-weight: 900;
+  padding: 8px 16px; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  box-shadow: 0 4px 0 #a88a00;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.controls button:hover, .chapters button:hover { transform: translateY(-2px); background: #ffe45c; }
+.controls button:active, .chapters button:active { transform: translateY(3px); box-shadow: 0 1px 0 #a88a00; }
+.chapters button { background: #2a0a45; color: #f3dcff; box-shadow: 0 4px 0 #14021f; font-size: .88rem; }
+.chapters button:hover { background: #4a137a; }
+.chapters button.on { background: var(--violet); color: #fff; }
+#seek { flex: 1 1 260px; accent-color: var(--gold); cursor: pointer; }
+#clock { min-width: 5.5em; text-align: right; font-variant-numeric: tabular-nums; color: #f3dcff; }
+.note { margin-top: 10px; color: #b894d6; font-size: .82rem; letter-spacing: .05em; text-align: center; max-width: min(1100px, 96vw); }
+</style>
+</head>
+<body>
+<header>
+  <h1>人行道不是很宽敞吗…开。</h1>
+  <p>JOJO的奇妙冒险 第三部 · 第251话「DIO的世界⑤」 · 开罗 1989</p>
+</header>
+
+<div class="stage" id="stage">
+<svg id="svg" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DIO 逼威尔逊议员把车开上人行道的动画">
+<defs>
+  <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1c0838"/><stop offset=".2" stop-color="#4b1766"/>
+    <stop offset=".34" stop-color="#b3376c"/><stop offset=".43" stop-color="#ff7e45"/><stop offset=".5" stop-color="#ffc66a"/><stop offset="1" stop-color="#ffd98a"/>
+  </linearGradient>
+  <radialGradient id="gSun"><stop offset="0" stop-color="#fff3b0"/><stop offset=".35" stop-color="#ffb347" stop-opacity=".9"/><stop offset="1" stop-color="#ff5e3a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gAsphalt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3347"/><stop offset="1" stop-color="#1a1523"/></linearGradient>
+  <linearGradient id="gWalk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b08c7c"/><stop offset="1" stop-color="#d8b394"/></linearGradient>
+  <linearGradient id="gBldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2a5e"/><stop offset="1" stop-color="#2c1236"/></linearGradient>
+  <linearGradient id="gBldg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a3b52"/><stop offset="1" stop-color="#3a1a33"/></linearGradient>
+  <linearGradient id="gLimo" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5b627c"/><stop offset=".3" stop-color="#1f2331"/><stop offset=".7" stop-color="#0a0b10"/><stop offset="1" stop-color="#030305"/>
+  </linearGradient>
+  <linearGradient id="gChrome" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#b9c3d6"/><stop offset=".55" stop-color="#5d6878"/><stop offset="1" stop-color="#e8edf5"/>
+  </linearGradient>
+  <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a4266" stop-opacity=".55"/><stop offset="1" stop-color="#0d0f1c" stop-opacity=".35"/></linearGradient>
+  <linearGradient id="gSeat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86203d"/><stop offset="1" stop-color="#3d0818"/></linearGradient>
+  <linearGradient id="gJacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff07a"/><stop offset=".5" stop-color="#f5bf0a"/><stop offset="1" stop-color="#b37800"/></linearGradient>
+  <linearGradient id="gHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6b8"/><stop offset=".55" stop-color="#ffd23a"/><stop offset="1" stop-color="#d99100"/></linearGradient>
+  <linearGradient id="gSuit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#303a5a"/><stop offset="1" stop-color="#141827"/></linearGradient>
+  <linearGradient id="gCabinBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a0f45"/><stop offset=".7" stop-color="#8a2a5c"/><stop offset="1" stop-color="#ff8a4a"/></linearGradient>
+  <radialGradient id="gHeadlight" cx="0" cy=".5" r="1"><stop offset="0" stop-color="#fffbd0" stop-opacity=".85"/><stop offset="1" stop-color="#ffe066" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gVignette" cx=".5" cy=".5" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
+  <linearGradient id="gEmerald" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9ffe9"/><stop offset=".4" stop-color="#2bff8a"/><stop offset="1" stop-color="#007a3d"/></linearGradient>
+
+  <pattern id="pPolka" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#ff4f9a"/><circle cx="2" cy="2" r="1.5" fill="#111"/><circle cx="6" cy="6" r="1.5" fill="#111"/></pattern>
+  <pattern id="pStripe" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="5" fill="#e01b24"/><rect y="5" width="10" height="5" fill="#fff"/></pattern>
+  <pattern id="pTone" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#000" fill-opacity=".35"/></pattern>
+  <pattern id="pTuft" width="46" height="60" patternUnits="userSpaceOnUse"><rect width="46" height="60" fill="none"/><path d="M23 0 V60" stroke="#2a0410" stroke-width="3" stroke-opacity=".55"/><circle cx="23" cy="30" r="3" fill="#2a0410" fill-opacity=".6"/></pattern>
+  <pattern id="pTiles" width="120" height="56" patternUnits="userSpaceOnUse">
+    <rect width="120" height="56" fill="#c19d84"/>
+    <path d="M0 0.5 H120 M0 28 H120 M40 0 V28 M100 28 V56" stroke="#8d6b5a" stroke-width="2.5"/>
+    <path d="M6 6 h24 M52 34 h30" stroke="#e2c3a6" stroke-width="2" stroke-opacity=".6"/>
+  </pattern>
+
+  <filter id="fGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="fSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+  <filter id="fSepia" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values=".393 .769 .189 0 0  .349 .686 .168 0 0  .272 .534 .131 0 0  0 0 0 1 0"/>
+  </filter>
+  <clipPath id="cpStage"><rect width="1280" height="720"/></clipPath>
+  <!-- DIO：原点在脸中心 -->
+  <g id="dio">
+    <path d="M-52,-66 C-72,-96 -30,-122 2,-114 C38,-122 80,-98 64,-64 L90,-52 L68,-40 L92,-20 L66,-10 L84,14 L60,14 L70,42 L46,26 L42,-28 L-42,-28 L-46,26 L-70,44 L-62,14 L-86,16 L-68,-8 L-92,-18 L-70,-38 L-90,-52 Z" fill="url(#gHair)" stroke="#5a3a00" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-62,92 L-88,48 L-40,84 Z M62,92 L88,48 L40,84 Z" fill="url(#gJacket)" stroke="#4a3000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-24,40 L-26,98 L26,98 L24,40 Z" fill="#f0cdb9" stroke="#3a1a1a" stroke-width="3"/>
+    <path d="M8,50 L24,48 L26,96 L10,96 Z" fill="#b98a8a" opacity=".5"/>
+    <path d="M-25,80 Q0,90 25,80" fill="none" stroke="#7a2a3a" stroke-width="2.5"/>
+    <path d="M-18,79 l-2,8 M-9,82 l-1,8 M0,84 v8 M9,82 l1,8 M18,79 l2,8" stroke="#7a2a3a" stroke-width="2"/>
+    <path d="M-62,94 Q0,122 62,94 L100,112 L108,240 L-108,240 L-100,112 Z" fill="#17121e" stroke="#000" stroke-width="3"/>
+    <path d="M-34,112 Q-16,124 0,116 Q16,124 34,112" stroke="#3a3048" stroke-width="3" fill="none"/>
+    <path d="M-62,92 L-132,110 Q-156,160 -146,240 L-84,240 L-76,150 Z" fill="url(#gJacket)" stroke="#4a3000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M62,92 L132,110 Q156,160 146,240 L84,240 L76,150 Z" fill="url(#gJacket)" stroke="#4a3000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-72,102 L-82,170 M72,102 L82,170 M-120,130 Q-126,170 -122,200 M120,130 Q126,170 122,200" stroke="#8a5a00" stroke-width="3" fill="none"/>
+    <path d="M-140,214 Q-50,168 66,168 L70,198 Q-40,196 -126,244 Z" fill="url(#gJacket)" stroke="#4a3000" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="50" y="164" width="16" height="36" rx="3" fill="#e0a800" stroke="#4a3000" stroke-width="2.5"/>
+    <path d="M66,166 Q92,164 96,182 Q92,200 70,198 Z" fill="#f0cdb9" stroke="#3a1a1a" stroke-width="2.5"/>
+    <path d="M140,206 Q44,180 -58,180 L-62,210 Q40,206 126,240 Z" fill="#ffd21f" stroke="#4a3000" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="-60" y="176" width="16" height="36" rx="3" fill="#e0a800" stroke="#4a3000" stroke-width="2.5"/>
+    <path d="M-60,180 Q-84,180 -88,196 Q-82,212 -62,210 Z" fill="#f0cdb9" stroke="#3a1a1a" stroke-width="2.5"/>
+    <path d="M-44,-40 C-48,-8 -44,22 -30,44 C-18,58 -8,64 0,66 C8,64 18,58 30,44 C44,22 48,-8 44,-40 C30,-58 -30,-58 -44,-40 Z" fill="#f6d8c6" stroke="#2a0f18" stroke-width="3"/>
+    <path d="M26,-30 C34,0 32,30 20,48 C12,58 6,62 0,65 C16,50 26,24 26,-30 Z" fill="#9a5a78" opacity=".35"/>
+    <path d="M-34,8 L-24,14 M-32,16 L-24,20 M34,8 L24,14 M32,16 L24,20 M-8,58 Q0,62 8,58" stroke="#8a4a5a" stroke-width="2" fill="none"/>
+    <path d="M-38,-17 Q-22,-31 -6,-18 Q-22,-25 -38,-17 Z M38,-17 Q22,-31 6,-18 Q22,-25 38,-17 Z" fill="#2f8f5c" opacity=".55"/>
+    <path d="M-36,-12 Q-22,-23 -7,-14 Q-20,-7 -36,-12 Z M36,-12 Q22,-23 7,-14 Q20,-7 36,-12 Z" fill="#fff6e6"/>
+    <circle cx="-19" cy="-14" r="5" fill="#ffb000"/><circle cx="-19" cy="-14" r="2" fill="#3a0000"/>
+    <circle cx="19" cy="-14" r="5" fill="#ffb000"/><circle cx="19" cy="-14" r="2" fill="#3a0000"/>
+    <path d="M-42,-15 L-36,-11 Q-22,-26 -6,-15 M42,-15 L36,-11 Q22,-26 6,-15" fill="none" stroke="#1a0610" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-34,-9 Q-22,-5 -10,-11 M34,-9 Q22,-5 10,-11" stroke="#6a2a3a" stroke-width="1.5" fill="none"/>
+    <path d="M-42,-33 L-9,-23 M42,-33 L9,-23" stroke="#b37a00" stroke-width="4" stroke-linecap="round"/>
+    <path d="M2,-6 L8,12 L4,16 Z" fill="#9a5a78" opacity=".35"/>
+    <path d="M-1,-10 L5,14 Q2,18 -4,16" fill="none" stroke="#6a2a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M-16,33 Q-7,28 0,31 Q7,28 16,32 L21,27 L18,34 Q7,37 0,36 Q-7,37 -16,33 Z" fill="#4d1f5e" stroke="#1a0610" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M-12,36 Q0,44 13,36 Q0,39 -12,36 Z" fill="#6c2b7c"/>
+    <path d="M-47,-49 Q0,-62 47,-49 L46,-40 Q0,-53 -46,-40 Z" fill="#1f9e5a" stroke="#0a3a1f" stroke-width="2.5"/>
+    <path d="M0,-38 C-13,-46 -13,-60 -4,-61 C-1,-61 0,-58 0,-57 C0,-58 1,-61 4,-61 C13,-60 13,-46 0,-38 Z" fill="#3fd07a" stroke="#0a3a1f" stroke-width="2.5"/>
+    <path d="M-20,-58 C-40,-50 -50,-30 -47,-2 C-44,-24 -36,-40 -14,-54 Z M22,-60 C44,-52 52,-30 49,-4 C45,-26 38,-42 16,-55 Z M-4,-60 C-14,-42 -24,-34 -30,-22 C-16,-32 -6,-40 4,-58 Z" fill="url(#gHair)" stroke="#5a3a00" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M-40,-80 Q-10,-104 30,-96 M-30,-70 Q0,-90 40,-80 M-64,-40 L-80,-50 M66,-38 L82,-48" stroke="#fffbe0" stroke-width="3" fill="none" opacity=".8" stroke-linecap="round"/>
+    <g id="dioGlow" opacity="0" filter="url(#fGlow)">
+      <ellipse cx="-19" cy="-14" rx="11" ry="5" fill="#ff3355"/><ellipse cx="19" cy="-14" rx="11" ry="5" fill="#ff3355"/>
+    </g>
+  </g>
+
+  <!-- 威尔逊·菲利普斯议员：原点在脸中心 -->
+  <g id="wilson">
+    <path d="M-74,56 Q-128,66 -150,124 L-162,250 L162,250 L150,124 Q128,66 74,56 Z" fill="url(#gSuit)" stroke="#05070d" stroke-width="3"/>
+    <path d="M-36,58 L0,126 L36,58 Z" fill="#f2f2f2" stroke="#333" stroke-width="2"/>
+    <path d="M-42,58 L-8,142 L-64,110 Z M42,58 L8,142 L64,110 Z" fill="#232a44" stroke="#05070d" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="0" cy="172" r="4" fill="#0a0d18"/><circle cx="0" cy="206" r="4" fill="#0a0d18"/>
+    <path d="M0,70 L-30,56 L-30,86 Z M0,70 L30,56 L30,86 Z" fill="url(#pPolka)" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="-7" y="63" width="14" height="14" rx="3" fill="#ff4f9a" stroke="#111" stroke-width="2.5"/>
+    <ellipse cx="-58" cy="4" rx="9" ry="14" fill="#efc3a0" stroke="#3a2010" stroke-width="2.5"/>
+    <ellipse cx="58" cy="4" rx="9" ry="14" fill="#efc3a0" stroke="#3a2010" stroke-width="2.5"/>
+    <path d="M-56,-24 C-60,16 -50,56 0,64 C50,56 60,16 56,-24 C52,-58 -52,-58 -56,-24 Z" fill="#f5d2b3" stroke="#3a2010" stroke-width="3"/>
+    <path d="M-28,56 Q0,70 28,56" stroke="#b8866a" stroke-width="2.5" fill="none"/>
+    <path d="M-55,-30 Q-61,-12 -54,-2 L-48,-28 Z M55,-30 Q61,-12 54,-2 L48,-28 Z" fill="#1c1a22"/>
+    <g id="wGloom" opacity="0" stroke="#4a6cff" stroke-width="2.5">
+      <path d="M-34,-40 V-18 M-22,-42 V-16 M-10,-43 V-20 M2,-43 V-16 M14,-42 V-20 M26,-40 V-18"/>
+    </g>
+    <path d="M-8,-6 Q-18,12 -6,19 Q0,22 6,19 Q18,12 8,-6" fill="#eab393" stroke="#3a2010" stroke-width="2.5"/>
+    <path d="M-6,24 Q-18,21 -30,27 M-6,28 Q-17,29 -26,35 M6,24 Q18,21 30,27 M6,28 Q17,29 26,35" stroke="#1c1a22" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <g id="wEyesN">
+      <path d="M-38,-18 Q-26,-26 -12,-29 M38,-18 Q26,-26 12,-29" stroke="#1c1a22" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="-24" cy="-8" rx="8" ry="7" fill="#fff" stroke="#3a2010" stroke-width="2"/><circle cx="-24" cy="-7" r="2.6" fill="#111"/>
+      <ellipse cx="24" cy="-8" rx="8" ry="7" fill="#fff" stroke="#3a2010" stroke-width="2"/><circle cx="24" cy="-7" r="2.6" fill="#111"/>
+      <path d="M-32,2 Q-24,6 -16,2 M32,2 Q24,6 16,2" stroke="#b8866a" stroke-width="2" fill="none"/>
+    </g>
+    <g id="wEyesW" display="none">
+      <path d="M-40,-26 Q-26,-38 -12,-34 M40,-26 Q26,-38 12,-34" stroke="#1c1a22" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="-24" cy="-9" rx="12" ry="13" fill="#fff" stroke="#3a2010" stroke-width="2.5"/><circle cx="-24" cy="-9" r="1.8" fill="#111"/>
+      <ellipse cx="24" cy="-9" rx="12" ry="13" fill="#fff" stroke="#3a2010" stroke-width="2.5"/><circle cx="24" cy="-9" r="1.8" fill="#111"/>
+    </g>
+    <g id="wEyesC" display="none">
+      <path d="M-40,-30 Q-30,-22 -12,-36 M40,-30 Q30,-22 12,-36" stroke="#1c1a22" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <circle cx="-24" cy="-9" r="12" fill="#fff" stroke="#3a2010" stroke-width="2.5"/><circle cx="24" cy="-9" r="12" fill="#fff" stroke="#3a2010" stroke-width="2.5"/>
+      <path d="M-24,-9 a2,2 0 1,1 4,0 a4,4 0 1,1 -8,0 a6,6 0 1,1 12,0 a8,8 0 1,1 -16,0 M24,-9 a2,2 0 1,0 -4,0 a4,4 0 1,0 8,0 a6,6 0 1,0 -12,0 a8,8 0 1,0 16,0" stroke="#111" stroke-width="2" fill="none"/>
+    </g>
+    <g id="wMouthN">
+      <path d="M-18,40 Q-9,35 0,39 Q9,35 18,40 Q9,50 0,48 Q-9,50 -18,40 Z" fill="#5a0f1c" stroke="#3a2010" stroke-width="2"/>
+      <path d="M-14,39.5 h9 v4 h-9 Z M5,39.5 h9 v4 h-9 Z" fill="#fff"/>
+    </g>
+    <g id="wMouthS" display="none">
+      <path d="M-24,36 Q0,24 24,36 Q28,64 0,72 Q-28,64 -24,36 Z" fill="#4a0d18" stroke="#3a2010" stroke-width="2.5"/>
+      <path d="M-18,33 h12 v7 h-12Z M6,33 h12 v7 h-12Z" fill="#fff" stroke="#3a2010" stroke-width="1"/>
+      <ellipse cx="0" cy="62" rx="12" ry="6" fill="#d9475a"/>
+    </g>
+    <g id="wMouthC" display="none">
+      <path d="M-36,30 Q0,48 36,30 Q32,60 0,64 Q-32,60 -36,30 Z" fill="#4a0d18" stroke="#3a2010" stroke-width="2.5"/>
+      <path d="M-30,33 Q-18,40 -5,41 v6 Q-20,46 -30,38 Z M30,33 Q18,40 5,41 v6 Q20,46 30,38 Z" fill="#fff"/>
+      <path d="M-8,52 Q0,66 10,54 Q4,58 -8,52Z" fill="#e0566a"/>
+    </g>
+    <path d="M-54,-42 Q-52,-90 -10,-94 Q0,-84 10,-94 Q52,-90 54,-42 Q0,-54 -54,-42 Z" fill="#2c303c" stroke="#0a0b10" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-54,-51 Q0,-63 54,-51 L54,-42 Q0,-54 -54,-42 Z" fill="#6b1830"/>
+    <path d="M-86,-36 Q0,-60 86,-36 Q88,-28 72,-26 Q0,-44 -72,-26 Q-88,-28 -86,-36 Z" fill="#383d4b" stroke="#0a0b10" stroke-width="3" stroke-linejoin="round"/>
+    <g id="wSweat" fill="#8fe8ff" stroke="#1a5a7a" stroke-width="1.5">
+      <path d="M-68,-20 q-7,10 0,15 q7,-5 0,-15Z"/><path d="M66,-14 q-7,10 0,15 q7,-5 0,-15Z"/>
+      <path d="M-40,-36 q-6,8 0,12 q6,-4 0,-12Z"/><path d="M44,-38 q-6,8 0,12 q6,-4 0,-12Z"/>
+    </g>
+  </g>
+
+  <!-- 豪华轿车侧视：原点在车尾地面，车头朝右 -->
+  <g id="limoArt">
+    <path d="M12,-42 L12,-90 Q14,-100 28,-102 L196,-108 L238,-160 Q244,-168 260,-168 L522,-168 Q538,-168 546,-160 L602,-110 L716,-102 Q734,-100 736,-88 L740,-46 Q740,-38 730,-36 L666,-36 A49,49 0 0 0 568,-36 L206,-36 A49,49 0 0 0 108,-36 L22,-36 Q12,-36 12,-42 Z" fill="url(#gLimo)" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M196,-108 L238,-160 Q244,-168 260,-168 L272,-168 L272,-110 Z" fill="#0b0c12" stroke="#000" stroke-width="2"/>
+    <circle cx="236" cy="-128" r="5" fill="#ffdf8a"/>
+    <path d="M28,-97 L196,-103 M602,-105 L716,-97" stroke="#9aa3bd" stroke-width="2.5" opacity=".6"/>
+    <path d="M196,-110 L604,-110" stroke="url(#gChrome)" stroke-width="3"/>
+    <path d="M14,-66 L736,-66" stroke="url(#gChrome)" stroke-width="5"/>
+    <path d="M22,-40 L730,-40" stroke="#000" stroke-width="3"/>
+    <path d="M278,-110 V-40 M412,-110 V-40 M562,-106 V-40" stroke="#000" stroke-width="2.5"/>
+    <rect x="380" y="-100" width="20" height="5" rx="2" fill="url(#gChrome)"/><rect x="540" y="-98" width="20" height="5" rx="2" fill="url(#gChrome)"/>
+    <path d="M12,-92 L22,-92 L22,-70 L12,-70 Z" fill="#ff2a2a" filter="url(#fGlow)"/>
+    <path d="M4,-62 L18,-62 L18,-38 L4,-38 Q0,-50 4,-62Z M726,-60 L748,-58 Q753,-48 748,-38 L726,-38 Z" fill="url(#gChrome)" stroke="#222" stroke-width="1.5"/>
+    <path d="M730,-98 L740,-96 L742,-62 L732,-62 Z" fill="url(#gChrome)" stroke="#222" stroke-width="1.5"/>
+    <path d="M734,-92 L745,-90 L745,-75 L734,-77 Z" fill="#fffbe0" stroke="#aa9" stroke-width="1"/>
+    <path d="M712,-103 l4,-11 l4,11 Z" fill="url(#gChrome)"/>
+    <path d="M552,-126 q10,-8 20,-2 l-2,10 q-10,2 -18,-8Z" fill="#111" stroke="#9aa3bd" stroke-width="1.5"/>
+    <g id="wheelR" transform="translate(157,-38)">
+      <circle r="40" fill="#0d0d10" stroke="#000" stroke-width="3"/><circle r="31" fill="none" stroke="#ececec" stroke-width="5"/><circle r="24" fill="url(#gChrome)"/>
+      <g class="spokes"><path d="M-22,0 H22 M0,-22 V22 M-15,-15 L15,15 M-15,15 L15,-15" stroke="#3a404c" stroke-width="3"/><circle r="7" fill="#2a2f38"/></g>
+    </g>
+    <g id="wheelF" transform="translate(617,-38)">
+      <circle r="40" fill="#0d0d10" stroke="#000" stroke-width="3"/><circle r="31" fill="none" stroke="#ececec" stroke-width="5"/><circle r="24" fill="url(#gChrome)"/>
+      <g class="spokes"><path d="M-22,0 H22 M0,-22 V22 M-15,-15 L15,15 M-15,15 L15,-15" stroke="#3a404c" stroke-width="3"/><circle r="7" fill="#2a2f38"/></g>
+    </g>
+  </g>
+  <g id="limoGlass">
+    <path d="M278,-160 L400,-160 L400,-114 L278,-114 Z M412,-160 L528,-160 Q536,-160 540,-154 L578,-114 L412,-114 Z" fill="url(#gGlass)" stroke="#c9d2e0" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M304,-160 L286,-114 M322,-160 L304,-114 M462,-160 L444,-114 M478,-160 L460,-114" stroke="#fff" stroke-opacity=".22" stroke-width="5"/>
+  </g>
+  <clipPath id="cpLimoWin"><path d="M278,-160 L400,-160 L400,-114 L278,-114 Z M412,-160 L528,-160 Q536,-160 540,-154 L578,-114 L412,-114 Z"/></clipPath>
+
+  <!-- 普通轿车（颜色由 color 属性决定） -->
+  <g id="sedan">
+    <path d="M6,-26 L6,-54 Q8,-62 20,-63 L70,-66 L100,-96 Q106,-102 118,-102 L196,-102 Q208,-102 214,-96 L246,-66 L290,-62 Q300,-60 301,-50 L302,-30 Q302,-24 294,-24 L262,-24 A28,28 0 0 0 206,-24 L96,-24 A28,28 0 0 0 40,-24 L14,-24 Q6,-24 6,-26 Z" fill="currentColor" stroke="#120a14" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M108,-94 L150,-94 L150,-68 L82,-68 Z M158,-94 L200,-94 Q206,-94 210,-88 L230,-68 L158,-68 Z" fill="#1b2340" stroke="#d8dde8" stroke-width="2"/>
+    <path d="M8,-44 L300,-44" stroke="#000" stroke-opacity=".3" stroke-width="6"/>
+    <rect x="2" y="-58" width="9" height="13" fill="#ff2626" filter="url(#fGlow)"/>
+    <rect x="292" y="-56" width="10" height="10" fill="#fff5c0"/>
+    <circle cx="68" cy="-24" r="22" fill="#111"/><circle cx="68" cy="-24" r="10" fill="#9aa3b5"/>
+    <circle cx="234" cy="-24" r="22" fill="#111"/><circle cx="234" cy="-24" r="10" fill="#9aa3b5"/>
+  </g>
+
+  <g id="lamp">
+    <rect x="-4" y="-300" width="8" height="300" fill="#1a1422"/>
+    <path d="M-16,-300 h32 l-6,-30 h-20 Z" fill="#241b2e"/>
+    <circle cx="0" cy="-318" r="34" fill="#ffd98a" opacity=".4" filter="url(#fSoft)"/>
+    <rect x="-10" y="-328" width="20" height="22" rx="3" fill="#ffe7a8"/>
+  </g>
+  <g id="palm">
+    <path d="M-6,0 Q-2,-120 8,-230 L16,-230 Q8,-120 8,0 Z" fill="#2a1630"/>
+    <g fill="#23122b" transform="translate(12,-232)">
+      <path d="M0,0 Q-60,-30 -110,10 Q-60,-14 0,0Z"/><path d="M0,0 Q60,-34 112,6 Q60,-16 0,0Z"/>
+      <path d="M0,0 Q-30,-60 -80,-70 Q-30,-40 0,0Z"/><path d="M0,0 Q30,-64 86,-66 Q30,-40 0,0Z"/><path d="M0,0 Q-10,-50 -20,-92 Q6,-50 0,0Z"/>
+    </g>
+  </g>
+</defs>
+
+<g id="world" clip-path="url(#cpStage)">
+  <g id="cam">
+    <g id="sStreet"><g id="stCam">
+      <rect width="1280" height="720" fill="url(#gSky)"/>
+      <circle cx="990" cy="338" r="140" fill="url(#gSun)"/>
+      <g fill="#6a2d6e" opacity=".45">
+        <path d="M1080,338 L1150,280 L1220,338Z M1170,338 L1226,292 L1282,338Z"/>
+      </g>
+      <g fill="#3a1650" opacity=".9">
+        <path d="M0,338 V296 H60 V272 H110 V300 H180 V338Z M300,338 V288 H380 V306 H440 V278 H500 V338Z M960,338 V300 H1020 V282 H1060 V338Z"/>
+        <path d="M244,338 L248,172 L240,162 L242,152 L268,152 L270,162 L262,172 L266,338 Z M253,152 L255,116 L257,152Z"/>
+        <path d="M720,338 L720,302 Q800,212 880,302 L880,338 Z M690,338 L690,314 Q712,286 734,314 L734,338Z M866,338 L866,314 Q888,286 910,314 L910,338Z"/>
+        <path d="M676,338 L678,202 L672,198 L684,160 L696,198 L690,202 L692,338 Z M916,338 L918,202 L912,198 L924,160 L936,198 L930,202 L932,338 Z M797,236 L800,206 L803,236Z"/>
+      </g>
+      <g id="stBldg"></g>
+      <rect y="402" width="1280" height="30" fill="#a88676"/>
+      <g id="stFarDeco"></g>
+      <g id="stFarCrowd"></g>
+      <rect y="430" width="1280" height="7" fill="#dcc6b2"/>
+      <rect y="437" width="1280" height="165" fill="url(#gAsphalt)"/>
+      <path d="M0 519 H1280" stroke="#e9e2d0" stroke-width="5" stroke-dasharray="46 38" opacity=".7"/>
+      <g id="stFarCars"></g>
+      <g id="stNearCars"></g>
+      <rect y="600" width="1280" height="14" fill="#e3cfbb"/>
+      <rect y="600" width="1280" height="3" fill="#fff3e2" opacity=".7"/>
+      <rect y="613" width="1280" height="107" fill="url(#pTiles)"/>
+      <rect y="613" width="1280" height="107" fill="url(#gWalk)" opacity=".35"/>
+      <g id="stSmoke" fill="#e9dff2" stroke="#8f7fa6" stroke-width="2"></g>
+      <g id="stLimo" transform="translate(430,592) scale(.72)">
+        <ellipse cx="376" cy="2" rx="380" ry="12" fill="#000" opacity=".45"/>
+        <use href="#limoArt"/>
+        <g clip-path="url(#cpLimoWin)">
+          <path d="M314,-112 Q340,-124 366,-112 L370,-100 L310,-100 Z" fill="#f5bf0a" stroke="#4a3000" stroke-width="2"/>
+          <path d="M334,-120 h12 v8 h-12 Z" fill="#17121e"/>
+          <path d="M322,-128 Q320,-158 340,-159 Q360,-158 358,-128 L366,-116 L354,-124 L352,-138 Q340,-134 328,-138 L326,-124 L314,-116 Z" fill="#ffd23a" stroke="#5a3a00" stroke-width="2"/>
+          <ellipse cx="340" cy="-128" rx="11" ry="14" fill="#f6d8c6"/>
+          <path d="M328,-139 Q340,-144 352,-139" stroke="#1f9e5a" stroke-width="3" fill="none"/>
+          <path d="M333,-130 h5 M343,-130 h5" stroke="#c0102a" stroke-width="2.5"/>
+          <path d="M456,-114 Q452,-138 480,-140 Q506,-138 504,-114 Z" fill="#f5d2b3"/>
+          <path d="M448,-138 Q480,-150 512,-138 L506,-134 Q480,-142 454,-134 Z M462,-138 Q464,-160 480,-160 Q496,-160 498,-138 Z" fill="#2c303c"/>
+        </g>
+        <use href="#limoGlass"/>
+      </g>
+      <g id="stNearCrowd"></g>
+      <g id="stFx">
+        <g id="stHonks" class="jp" font-size="30" font-weight="900" fill="#fff" stroke="#c4003a" stroke-width="5"></g>
+        <text id="stScreech" class="jp" x="330" y="520" font-size="58" font-weight="900" fill="#fff" stroke="#1a0426" stroke-width="8" font-style="italic" opacity="0">ギャギャギャッ</text>
+        <text id="stDodo" class="jp" x="640" y="170" font-size="96" font-weight="900" fill="#ffd400" stroke="#6a0030" stroke-width="9" text-anchor="middle" opacity="0">ドドドドド</text>
+        <g id="stLines" stroke="#fff" stroke-linecap="round" opacity="0"></g>
+      </g>
+    </g></g>
+    <g id="sCabin" display="none"><g id="cbCam">
+      <rect width="1280" height="720" fill="url(#gCabinBg)"/>
+      <path d="M220,300 V236 H286 V206 H360 V246 H430 V190 H520 V238 H600 V214 H690 V250 H770 V200 H860 V236 H940 V212 H1060 V300 Z" fill="#2a1238"/>
+      <g filter="url(#fSoft)" opacity=".9">
+        <circle cx="340" cy="262" r="18" fill="#ff3040"/><circle cx="420" cy="272" r="14" fill="#ff5050"/>
+        <circle cx="530" cy="250" r="22" fill="#ffcc66"/><circle cx="760" cy="266" r="16" fill="#ff3040"/>
+        <circle cx="866" cy="254" r="20" fill="#fff2c0"/><circle cx="950" cy="272" r="12" fill="#ff5050"/>
+      </g>
+      <path d="M0,0 H1280 V720 H0 Z M300,96 L980,96 Q1010,96 1020,120 L1060,300 L220,300 L260,120 Q270,96 300,96 Z" fill="#1c0d22" fill-rule="evenodd"/>
+      <path d="M300,96 L980,96 Q1010,96 1020,120 L1060,300 L220,300 L260,120 Q270,96 300,96 Z" fill="none" stroke="#3a2140" stroke-width="10" stroke-linejoin="round"/>
+      <rect x="200" y="294" width="880" height="24" fill="#12070f"/>
+      <path d="M170,332 Q170,302 210,302 L1070,302 Q1110,302 1110,332 L1110,560 L170,560 Z" fill="url(#gSeat)" stroke="#1a0208" stroke-width="4"/>
+      <rect x="170" y="312" width="940" height="248" fill="url(#pTuft)"/>
+      <ellipse id="cbAura" cx="610" cy="300" rx="270" ry="230" fill="#a728ff" opacity="0" filter="url(#fSoft)"/>
+      <g id="cbDio" transform="translate(610,262) scale(1.08)"><use href="#dio"/></g>
+      <path d="M470,480 L790,480 L822,720 L438,720 Z" fill="#241428" stroke="#0b0410" stroke-width="4"/>
+      <path d="M300,300 Q300,286 316,286 L420,286 Q436,286 436,300 L432,372 L304,372 Z" fill="url(#gSeat)" stroke="#1a0208" stroke-width="4"/>
+      <rect x="348" y="370" width="10" height="18" fill="#4a4250"/><rect x="378" y="370" width="10" height="18" fill="#4a4250"/>
+      <path d="M240,402 Q240,384 262,384 L474,384 Q496,384 496,404 L500,720 L236,720 Z" fill="url(#gSeat)" stroke="#1a0208" stroke-width="4"/>
+      <path d="M302,410 V700 M368,410 V700 M434,410 V700" stroke="#2a0410" stroke-width="3" opacity=".6"/>
+      <path d="M846,244 Q846,230 862,230 L978,230 Q994,230 994,244 L990,318 L850,318 Z" fill="url(#gSeat)" stroke="#1a0208" stroke-width="4"/>
+      <path d="M760,362 Q760,340 784,340 L1050,340 Q1074,340 1074,362 L1080,720 L756,720 Z" fill="url(#gSeat)" stroke="#1a0208" stroke-width="4"/>
+      <g id="cbWilson" transform="translate(915,336) scale(1.12)"><use href="#wilson"/></g>
+      <path d="M744,470 Q728,530 738,590 L786,588 Q788,530 802,482 Z M1086,470 Q1102,530 1092,590 L1044,588 Q1042,530 1028,482 Z" fill="url(#gSuit)" stroke="#05070d" stroke-width="3"/>
+      <g id="cbWheel">
+        <path d="M905,720 V640" stroke="#111" stroke-width="30"/>
+        <ellipse cx="905" cy="600" rx="175" ry="58" fill="none" stroke="#141018" stroke-width="24"/>
+        <ellipse cx="905" cy="592" rx="175" ry="58" fill="none" stroke="#3a3040" stroke-width="3"/>
+        <path d="M760,610 L905,622 L1050,610" stroke="#141018" stroke-width="14" fill="none"/>
+        <ellipse cx="905" cy="622" rx="40" ry="18" fill="#1d1722" stroke="#3a3040" stroke-width="2"/>
+        <g fill="#f5d2b3" stroke="#3a2010" stroke-width="3">
+          <path d="M728,572 Q742,552 772,560 Q786,572 780,596 Q758,606 736,598 Q722,588 728,572Z"/>
+          <path d="M1082,572 Q1068,552 1038,560 Q1024,572 1030,596 Q1052,606 1074,598 Q1088,588 1082,572Z"/>
+        </g>
+      </g>
+      <path d="M0,642 Q640,600 1280,642 L1280,720 L0,720 Z" fill="#150d18" stroke="#2a1e30" stroke-width="4"/>
+      <ellipse cx="905" cy="668" rx="100" ry="14" fill="#ff9a3c" opacity=".35" filter="url(#fSoft)"/>
+      <clipPath id="cpWs"><path d="M170,44 L1110,44 Q1130,44 1136,64 L1240,652 L40,652 L144,64 Q150,44 170,44 Z"/></clipPath>
+      <g clip-path="url(#cpWs)">
+        <g id="cbGlare" fill="#fff" opacity=".13">
+          <path d="M380,44 L470,44 L270,652 L180,652 Z"/><path d="M510,44 L540,44 L340,652 L310,652 Z"/>
+        </g>
+        <path d="M280,650 L640,612 M720,650 L1060,612" stroke="#0c0c10" stroke-width="7" stroke-linecap="round"/>
+      </g>
+      <path d="M0,0 H1280 V720 H0 Z M170,44 L1110,44 Q1130,44 1136,64 L1240,652 L40,652 L144,64 Q150,44 170,44 Z" fill="#0a0610" fill-rule="evenodd"/>
+      <path d="M170,44 L1110,44 Q1130,44 1136,64 L1240,652 L40,652 L144,64 Q150,44 170,44 Z" fill="none" stroke="#3b2a44" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M0,656 L1280,656 L1280,720 L0,720 Z" fill="url(#gLimo)"/>
+      <path d="M40,660 Q640,648 1240,660" stroke="#8a93ad" stroke-width="3" fill="none" opacity=".5"/>
+      <path d="M630,690 l10,-24 l10,24 Z" fill="url(#gChrome)"/>
+      <path d="M640,44 V62" stroke="#111" stroke-width="8"/>
+      <rect x="556" y="58" width="168" height="44" rx="12" fill="#141016" stroke="#3a3040" stroke-width="3"/>
+    </g></g>
+    <g id="sRun" display="none"><g id="rnCam">
+      <defs>
+        <pattern id="pTilesRun" width="120" height="56" patternUnits="userSpaceOnUse">
+          <rect width="120" height="56" fill="#c19d84"/>
+          <path d="M0 0.5 H120 M0 28 H120 M40 0 V28 M100 28 V56" stroke="#8d6b5a" stroke-width="2.5"/>
+          <path d="M6 6 h24 M52 34 h30" stroke="#e2c3a6" stroke-width="2" stroke-opacity=".6"/>
+        </pattern>
+      </defs>
+      <rect width="1280" height="720" fill="url(#gSky)"/>
+      <circle cx="1040" cy="300" r="150" fill="url(#gSun)"/>
+      <g id="rnFar" fill="#3a1650" opacity=".9"></g>
+      <g id="rnBldg"></g>
+      <rect y="470" width="1280" height="10" fill="#4a2440"/>
+      <rect y="478" width="1280" height="172" fill="url(#pTilesRun)"/>
+      <rect y="478" width="1280" height="172" fill="url(#gWalk)" opacity=".3"/>
+      <rect y="648" width="1280" height="14" fill="#e3cfbb"/>
+      <rect y="660" width="1280" height="60" fill="url(#gAsphalt)"/>
+      <g id="rnProps"></g>
+      <g id="rnDust" fill="#e6d6e8" stroke="#8f7fa6" stroke-width="2"></g>
+      <g id="rnPedsBack"></g>
+      <g id="rnCar" transform="translate(110,628) scale(.85)">
+        <polygon id="rnBeam" points="745,-86 1420,-210 1420,40" fill="url(#gHeadlight)" opacity=".7"/>
+        <ellipse cx="376" cy="4" rx="390" ry="14" fill="#000" opacity=".5"/>
+        <g id="rnBody">
+          <use href="#limoArt"/>
+          <g id="rnSplats" opacity="0">
+            <path d="M598,-106 q10,-9 18,0 q9,-6 13,4 q-4,9 -15,6 q-8,7 -16,-10Z M696,-99 q9,-5 15,2 q6,9 -4,13 q-13,2 -11,-15Z M727,-84 q11,2 11,13 q-7,6 -13,-2Z M650,-104 q6,-4 10,2 q-2,6 -10,-2Z" fill="#e8213f"/>
+            <path d="M610,-98 v14 M632,-100 v9 M704,-88 v12" stroke="#e8213f" stroke-width="3" stroke-linecap="round"/>
+            <path d="M676,-110 l11,-4 l-2,9Z M620,-112 l8,-6 l2,8Z" fill="#1f8a3a"/>
+            <circle cx="606" cy="-102" r="1.8" fill="#111"/><circle cx="702" cy="-92" r="1.8" fill="#111"/>
+          </g>
+          <g clip-path="url(#cpLimoWin)">
+            <rect x="270" y="-170" width="320" height="64" fill="#2a1030"/>
+            <g transform="translate(338,-128) scale(.36)"><use href="#dio"/></g>
+            <g transform="translate(488,-126) scale(.34)"><use href="#wilson"/></g>
+          </g>
+          <use href="#limoGlass"/>
+        </g>
+      </g>
+      <g id="rnPeds"></g>
+      <g id="rnFront"></g>
+      <g id="rnLines" stroke="#fff" stroke-linecap="round"></g>
+      <text id="rnDodo" class="jp" x="640" y="150" font-size="104" font-weight="900" fill="#ffd400" stroke="#6a0030" stroke-width="10" text-anchor="middle">ドドドドド</text>
+      <g id="rnHits" class="jp" font-weight="900"></g>
+      <text id="rnWally" class="zh" font-size="22" font-weight="900" fill="#fff" stroke="#000" stroke-width="5" opacity="0">……威利？</text>
+      <g id="rnEmerald" filter="url(#fGlow)"></g>
+      <g id="rnEmText" opacity="0">
+        <text x="640" y="118" class="jp" font-size="66" font-weight="900" fill="#39ff8f" stroke="#003a1c" stroke-width="9" text-anchor="middle" font-style="italic">エメラルドスプラッシュ！！</text>
+        <text x="640" y="164" class="zh" font-size="28" font-weight="900" fill="#e9fff2" stroke="#003a1c" stroke-width="6" text-anchor="middle">花京院：绿宝石水花！</text>
+      </g>
+    </g></g>
+
+    <g id="sMad" display="none"><g id="mdCam">
+      <rect width="1280" height="720" fill="#2a0038"/>
+      <g id="mdBurst" transform="translate(640,380)"></g>
+      <circle cx="640" cy="380" r="280" fill="#fff" opacity=".07"/>
+      <g id="mdWilson" transform="translate(640,390) scale(2.3)"><use href="#wilson"/></g>
+      <path d="M150,790 Q640,560 1130,790" stroke="#141018" stroke-width="48" fill="none"/>
+      <path d="M150,782 Q640,552 1130,782" stroke="#3a3040" stroke-width="5" fill="none"/>
+      <g fill="#f5d2b3" stroke="#3a2010" stroke-width="4">
+        <path d="M300,650 Q320,606 380,618 Q408,640 396,684 Q352,704 314,690 Q288,672 300,650Z"/>
+        <path d="M980,650 Q960,606 900,618 Q872,640 884,684 Q928,704 966,690 Q992,672 980,650Z"/>
+        <path d="M330,630 l20,40 M352,622 l14,48 M930,630 l-20,40 M908,622 l-14,48" fill="none" stroke-width="3"/>
+      </g>
+      <text id="mdLaugh" class="jp" x="640" y="120" font-size="72" font-weight="900" fill="#ff5fd2" stroke="#2a0038" stroke-width="8" text-anchor="middle" opacity="0">ワハハハハハハ</text>
+      <g id="mdPanel" opacity="0">
+        <clipPath id="cpPanel"><rect x="880" y="60" width="350" height="250"/></clipPath>
+        <rect x="880" y="60" width="350" height="250" fill="#12031c"/>
+        <g clip-path="url(#cpPanel)">
+          <g id="mdPanelRays" transform="translate(1055,200)" stroke="#6b1fa3" stroke-width="3"></g>
+          <g transform="translate(1055,200) scale(1.35)"><use href="#dio"/></g>
+          <rect x="880" y="60" width="350" height="250" fill="#6a00a8" opacity=".22"/>
+        </g>
+        <rect x="880" y="60" width="350" height="250" fill="none" stroke="#fff" stroke-width="9"/>
+        <rect x="880" y="60" width="350" height="250" fill="none" stroke="#000" stroke-width="3"/>
+      </g>
+    </g></g>
+  </g>
+  <rect width="1280" height="720" fill="url(#gVignette)" pointer-events="none"/>
+</g>
+
+<g id="hud">
+  <g id="gogo" class="jp" font-size="64" font-weight="900" fill="#b12cff" stroke="#ffe23d" stroke-width="3"></g>
+  <g id="caption" opacity="0">
+    <rect x="34" y="30" width="356" height="92" fill="#0b0312" fill-opacity=".86" stroke="#ffd400" stroke-width="3"/>
+    <text x="54" y="70" class="zh" font-size="30" font-weight="900" fill="#ffd400">开罗 · 傍晚下班高峰</text>
+    <text x="54" y="104" class="zh" font-size="17" fill="#e8ccff">1989年1月　议员威尔逊·菲利普斯的座驾</text>
+  </g>
+  <g id="bubble" opacity="0">
+    <path id="bubbleShape" d=""/>
+    <text id="bubbleZh" class="zh" font-weight="900" text-anchor="middle"></text>
+    <text id="bubbleJa" class="jp" font-weight="700" text-anchor="middle"></text>
+  </g>
+  <rect id="flash" width="1280" height="720" fill="#fff" opacity="0" pointer-events="none"/>
+  <g id="tbc" opacity="0">
+    <path d="M36 646 L118 594 L118 620 L560 620 L560 672 L118 672 L118 698 Z" fill="#d9a441" stroke="#3a2410" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M60 646 L112 613 M126 628 H552" stroke="#f7d98a" stroke-width="4" stroke-linecap="round"/>
+    <text x="338" y="658" class="impact" font-size="36" font-style="italic" fill="#3a2410" text-anchor="middle" letter-spacing="2">TO BE CONTINUED</text>
+  </g>
+</g>
+</svg>
+</div>
+
+<div class="controls">
+  <button id="btnPlay" type="button">❚❚ 暂停</button>
+  <button id="btnRestart" type="button">↺ 重播</button>
+  <input id="seek" type="range" min="0" max="41" step="0.01" value="0" aria-label="进度">
+  <span id="clock">0.0 / 41.0s</span>
+  <button id="btnSound" type="button">♪ 音效：关</button>
+</div>
+<div class="chapters" id="chapters">
+  <button type="button" data-t="0">① 开罗塞车</button>
+  <button type="button" data-t="5">② 「开。」</button>
+  <button type="button" data-t="18.6">③ 冲上人行道</button>
+  <button type="button" data-t="21.6">④ 横冲直撞</button>
+  <button type="button" data-t="29.4">⑤ 议员崩溃</button>
+  <button type="button" data-t="35">⑥ 绿宝石水花</button>
+</div>
+<p class="note">空格键 暂停/继续 · ← → 快退/快进 2 秒 · 行人被撞飞按漫画原作的滑稽风格处理，车头只有西瓜汁</p>
+
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const easeOut = k => 1 - Math.pow(1 - k, 3);
+const easeIn = k => k * k * k;
+const easeInOut = k => (k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const easeBack = k => 1 + 2.70158 * Math.pow(k - 1, 3) + 1.70158 * Math.pow(k - 1, 2);
+const rng = seed => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const add = (parent, markup) => { parent.insertAdjacentHTML('beforeend', markup); return parent.lastElementChild; };
+const tf = (e, v) => e.setAttribute('transform', v);
+const op = (e, v) => e.setAttribute('opacity', (+v).toFixed(3));
+const show = (e, on) => e.setAttribute('display', on ? 'inline' : 'none');
+const wave = (t, f, p = 0) => Math.sin((t * f + p) * Math.PI * 2);
+
+const TOTAL = 41;
+const SKIN = ['#f1c8a6', '#d9a47c', '#b57a52', '#8a5636', '#f6d8c0'];
+const CLOTH = ['#e04f5f', '#3d7edb', '#f2c14e', '#5bbf8a', '#9b59d0', '#f08a3c', '#ececec', '#2e3a59', '#c0392b', '#16a085', '#8e6c4e', '#ff7fb0'];
+const HATS = ['fez', 'scarf', 'cap', 'hair', 'hair', 'none'];
+
+/* 行人：原点在脚底，身高约 200 */
+function pedMarkup(o) {
+  const ink = 'stroke="#1a0c1c" stroke-width="3"';
+  const topFill = o.wally ? 'url(#pStripe)' : o.top;
+  const sleeve = o.wally ? '#e01b24' : o.top;
+  let m = '<g>';
+  for (const side of [-1, 1]) {
+    const x0 = side < 0 ? -10 : 0;
+    m += `<g class="leg"><path d="M${x0},-92 L${x0 - 2},-4 L${x0 + 12},-4 L${x0 + 10},-92Z" fill="${o.bottom}" ${ink}/><path d="M${x0 - 6},-6 h20 v6 h-20Z" fill="#231418"/></g>`;
+  }
+  if (o.kind === 'robe') m += `<path d="M-22,-160 L22,-160 L30,-26 L-30,-26Z" fill="${topFill}" ${ink}/>`;
+  else if (o.kind === 'dress') m += `<path d="M-18,-160 L18,-160 L34,-58 L-34,-58Z" fill="${topFill}" ${ink}/>`;
+  else m += `<path d="M-20,-160 L20,-160 L18,-88 L-18,-88Z" fill="${topFill}" ${ink}/>`;
+  for (const side of [-1, 1]) {
+    m += `<g class="arm"><path d="M${18 * side},-155 L${30 * side},-100" stroke="${sleeve}" stroke-width="11" stroke-linecap="round"/><circle cx="${31 * side}" cy="-97" r="6" fill="${o.skin}" stroke="#1a0c1c" stroke-width="2"/></g>`;
+  }
+  m += `<rect x="-6" y="-172" width="12" height="14" fill="${o.skin}"/>`;
+  m += `<ellipse cx="0" cy="-184" rx="15" ry="17" fill="${o.skin}" ${ink}/>`;
+  const hat = o.wally ? 'wally' : o.hat;
+  if (hat === 'fez') m += `<path d="M-11,-197 L-9,-213 L9,-213 L11,-197Z" fill="#b3122e" stroke="#1a0c1c" stroke-width="2"/><path d="M0,-213 q9,2 10,13" stroke="#111" stroke-width="2" fill="none"/>`;
+  if (hat === 'scarf') m += `<path d="M-19,-178 Q-21,-207 0,-205 Q21,-207 19,-178 L22,-158 L-22,-158Z" fill="${o.scarf}" ${ink}/><ellipse cx="0" cy="-182" rx="10" ry="12" fill="${o.skin}"/>`;
+  if (hat === 'cap') m += `<path d="M-15,-190 Q0,-208 15,-190 Z" fill="${o.bottom}" stroke="#1a0c1c" stroke-width="2"/><path d="M8,-193 h16 v4 h-16Z" fill="${o.bottom}"/>`;
+  if (hat === 'hair') m += `<path d="M-15,-186 Q-14,-205 0,-203 Q14,-205 15,-186 Q6,-197 -15,-186Z" fill="#2a1a14"/>`;
+  if (hat === 'wally') m += `<path d="M-15,-192 Q0,-216 15,-192Z" fill="url(#pStripe)" stroke="#1a0c1c" stroke-width="2"/><circle cx="0" cy="-215" r="5" fill="#e01b24"/><path d="M-15,-192 Q0,-198 15,-192" stroke="#1a0c1c" stroke-width="2" fill="none"/>`;
+  m += `<circle cx="-5" cy="-186" r="1.8" fill="#111"/><circle cx="6" cy="-186" r="1.8" fill="#111"/>`;
+  if (o.wally) m += `<circle cx="-5" cy="-186" r="5.5" fill="none" stroke="#111" stroke-width="2"/><circle cx="6" cy="-186" r="5.5" fill="none" stroke="#111" stroke-width="2"/><rect x="24" y="-128" width="24" height="30" fill="#2d62c8" stroke="#111" stroke-width="2" transform="rotate(-20 36 -113)"/>`;
+  if (o.bag) m += `<rect x="24" y="-98" width="22" height="17" rx="2" fill="#5a3a22" ${ink}/>`;
+  if (o.paper) m += `<rect x="-46" y="-124" width="24" height="30" fill="#eee" stroke="#555" stroke-width="2"/><path d="M-42,-116 h16 M-42,-110 h16 M-42,-104 h12" stroke="#777" stroke-width="2"/>`;
+  m += `<g class="shock" opacity="0"><ellipse cx="0" cy="-175" rx="4" ry="5.5" fill="#3a0010"/><path d="M-20,-214 l-7,-11 M0,-220 v-13 M20,-214 l7,-11" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></g>`;
+  return m + '</g>';
+}
+
+function randomPed(R, extra = {}) {
+  const kind = R() < .3 ? 'robe' : R() < .45 ? 'dress' : 'suit';
+  return Object.assign({
+    kind, skin: SKIN[(R() * SKIN.length) | 0], top: CLOTH[(R() * CLOTH.length) | 0],
+    bottom: ['#2b2d42', '#4a3b2a', '#3c4f76', '#1f1f24', '#6b5b4b'][(R() * 5) | 0],
+    hat: kind === 'dress' ? 'scarf' : HATS[(R() * HATS.length) | 0],
+    scarf: CLOTH[(R() * CLOTH.length) | 0], bag: R() < .3, paper: R() < .2,
+  }, extra);
+}
+
+function makePed(parent, o) {
+  const g = add(parent, pedMarkup(o));
+  const [legA, legB] = g.querySelectorAll('.leg');
+  const [armA, armB] = g.querySelectorAll('.arm');
+  return { g, legA, legB, armA, armB, shock: g.querySelector('.shock'), o };
+}
+
+/* 以身体中心 (0,-100) 为枢轴摆放行人 */
+function posePed(p, x, y, s, phase, rot = 0, dir = 1) {
+  const sw = Math.sin(phase * Math.PI * 2) * 24;
+  tf(p.legA, `rotate(${sw} -4 -92)`); tf(p.legB, `rotate(${-sw} 4 -92)`);
+  tf(p.armA, `rotate(${-sw * .8} -18 -155)`); tf(p.armB, `rotate(${sw * .8} 18 -155)`);
+  const bob = Math.abs(Math.sin(phase * Math.PI * 2)) * 4 * s;
+  tf(p.g, `translate(${x.toFixed(1)} ${(y - 100 * s - bob).toFixed(1)}) rotate(${rot.toFixed(1)}) scale(${(s * dir).toFixed(3)} ${s.toFixed(3)}) translate(0 100)`);
+}
+
+/* ---------- 镜头一 / 三：塞车的街道 ---------- */
+const ST = { far: [], near: [], honks: [], smoke: [], lines: [] };
+function bldgMarkup(x, w, top, base, i, R, awnY) {
+  let m = `<rect x="${x}" y="${top}" width="${w}" height="${base - top}" fill="url(#gBldg${i % 2 ? '2' : ''})" stroke="#1a0820" stroke-width="3"/>`;
+  m += `<rect x="${x - 5}" y="${top - 9}" width="${w + 10}" height="11" fill="#2a0f33"/>`;
+  for (let yy = top + 22; yy < awnY - 30; yy += 38) {
+    for (let xx = x + 14; xx < x + w - 20; xx += 32) {
+      const lit = R() < .45;
+      m += `<path d="M${xx} ${yy + 22} V${yy + 7} Q${xx + 8} ${yy - 2} ${xx + 16} ${yy + 7} V${yy + 22} Z" fill="${lit ? (R() < .2 ? '#ffb3e6' : '#ffd27a') : '#2a1030'}"/>`;
+      if (R() < .22) m += `<path d="M${xx - 4} ${yy + 24} h24 M${xx - 4} ${yy + 24} v-8 M${xx + 20} ${yy + 24} v-8" stroke="#1a0820" stroke-width="3" fill="none"/>`;
+    }
+  }
+  if (i % 3 === 0) m += `<path d="M${x + 18} ${top - 9} v-20 h26 v20 Z" fill="#2a0f33"/>`;
+  if (i % 3 === 1) m += `<path d="M${x + w - 26} ${top - 9} v-34 M${x + w - 38} ${top - 34} h24" stroke="#2a0f33" stroke-width="3"/>`;
+  const awn = [['#d6283d', '#f7e7c6'], ['#1f7a5a', '#f2e2b8'], ['#e39b20', '#fff1cf'], ['#3a56c4', '#f5f0e6'], ['#8a2a8a', '#fbe3f2']][i % 5];
+  m += `<rect x="${x + 8}" y="${awnY + 6}" width="${w - 16}" height="${base - awnY - 6}" fill="#ffcf6b" opacity=".5"/>`;
+  m += `<path d="M${x + 4} ${awnY - 8} H${x + w - 4} L${x + w - 12} ${awnY + 16} H${x + 12} Z" fill="${awn[0]}" stroke="#1a0820" stroke-width="2"/>`;
+  for (let k = x + 12; k < x + w - 20; k += 20) m += `<path d="M${k} ${awnY - 8} L${k + 3} ${awnY + 16} H${k + 13} L${k + 10} ${awnY - 8}Z" fill="${awn[1]}" opacity=".85"/>`;
+  return m;
+}
+
+function buildStreet() {
+  const R = rng(7);
+  const blds = [[-10, 150, 262], [140, 122, 300], [262, 170, 250], [432, 112, 290], [544, 160, 240], [704, 140, 296], [844, 182, 258], [1026, 130, 284], [1156, 150, 246]];
+  $('stBldg').innerHTML = blds.map(([x, w, top], i) => bldgMarkup(x, w, top, 402, i, R, 372)).join('');
+  let deco = '';
+  [120, 520, 980].forEach(x => { deco += `<use href="#palm" transform="translate(${x} 432) scale(.5)"/>`; });
+  [330, 760, 1200].forEach(x => { deco += `<use href="#lamp" transform="translate(${x} 432) scale(.45)"/>`; });
+  $('stFarDeco').innerHTML = deco;
+  for (let i = 0; i < 16; i++) {
+    const p = makePed($('stFarCrowd'), randomPed(R));
+    Object.assign(p, { x0: R() * 1400 - 60, dir: R() < .5 ? -1 : 1, v: 22 + R() * 18, ph: R(), y: 431 + R() * 3 });
+    ST.far.push(p);
+  }
+  const farColors = ['#c9c2b0', '#7a2533', '#2f4f7f', '#d8a93a', '#1c1c22', '#5e7d5a'];
+  let cars = '';
+  [-80, 184, 448, 712, 976, 1240].forEach((x, i) => { cars += `<use href="#sedan" color="${farColors[i]}" transform="translate(${x} 506) scale(.74)"/>`; });
+  $('stFarCars').innerHTML = cars;
+  $('stNearCars').innerHTML = `<use href="#sedan" color="#e8e4da" transform="translate(-230 594)"/><use href="#sedan" color="#1a1a1f" transform="translate(104 594)"/><use href="#sedan" color="#b8343c" transform="translate(988 594)"/>`;
+  const near = [[90, 704], [250, 690], [360, 712], [540, 694], [640, 708], [760, 690], [880, 712], [990, 698], [1120, 706], [1230, 692], [470, 716], [1060, 716]];
+  near.forEach(([x, y], i) => {
+    const p = makePed($('stNearCrowd'), randomPed(R, i === 7 ? { paper: true } : {}));
+    Object.assign(p, { x0: x, y, dir: R() < .5 ? -1 : 1, v: 26 + R() * 16, ph: R(), fly: [(R() - .3) * 500, 900 + R() * 500, (R() - .5) * 900] });
+    ST.near.push(p);
+  });
+  [[250, 430, .6, 'プップー！'], [1070, 516, 1.4, 'ブーッ！'], [610, 418, 2.3, 'プァーン！'], [170, 520, 3.1, 'プップー！'], [880, 424, 3.8, 'ブッブー！'], [1150, 520, 18.4, 'ブーッ！']].forEach(([x, y, t, s]) => {
+    ST.honks.push({ e: add($('stHonks'), `<text x="${x}" y="${y}" text-anchor="middle" opacity="0">${s}</text>`), t, x, y });
+  });
+  for (let i = 0; i < 8; i++) ST.smoke.push(add($('stSmoke'), `<circle r="20" opacity="0"/>`));
+  for (let i = 0; i < 16; i++) ST.lines.push({ e: add($('stLines'), `<line x1="0" y1="0" x2="0" y2="0" stroke-width="${2 + R() * 5}"/>`), y: 140 + R() * 560, s: R() });
+}
+
+/* ---------- 镜头四：人行道跟拍 ---------- */
+const RN = { peds: [], hits: [], dust: [], lines: [], shards: [], front: null, props: null, far: null, bldg: null };
+const RUN_V = 950, CAR_FRONT = 110 + 748 * .85;
+function buildRun() {
+  const R = rng(42);
+  let far = '';
+  for (const o of [0, 1600]) {
+    far += `<path d="M${o},300 V250 H${o + 90} V226 H${o + 150} V262 H${o + 260} V300Z M${o + 330},300 L${o + 334},130 L${o + 326},120 L${o + 340},84 L${o + 354},120 L${o + 346},130 L${o + 350},300Z M${o + 380},300 V260 Q${o + 460},170 ${o + 540},260 V300Z M${o + 560},300 L${o + 564},150 L${o + 556},140 L${o + 570},104 L${o + 584},140 L${o + 576},150 L${o + 580},300Z M${o + 700},300 V240 H${o + 800} V214 H${o + 860} V300Z M${o + 960},300 L${o + 964},120 L${o + 956},110 L${o + 958},100 L${o + 984},100 L${o + 986},110 L${o + 978},120 L${o + 982},300Z M${o + 1080},300 V266 Q${o + 1130},212 ${o + 1180},266 V300Z M${o + 1260},300 V236 H${o + 1380} V256 H${o + 1460} V300Z"/>`;
+  }
+  $('rnFar').innerHTML = far;
+  RN.far = $('rnFar');
+  let b = '';
+  for (const o of [0, 1400]) {
+    let x = o, i = 0;
+    const R2 = rng(99);
+    while (x < o + 1400) {
+      const w = Math.min(170 + ((R2() * 90) | 0), o + 1400 - x);
+      b += bldgMarkup(x, w, 70 + ((R2() * 140) | 0), 472, i++, R2, 420);
+      x += w;
+    }
+  }
+  $('rnBldg').innerHTML = b;
+  RN.bldg = $('rnBldg');
+  let props = '';
+  for (let i = 0; i < 4; i++) props += `<use href="#lamp" transform="translate(${i * 520 + 60} 500) scale(.95)"/><use href="#palm" transform="translate(${i * 520 + 320} 496) scale(.8)"/>`;
+  $('rnProps').innerHTML = props;
+  RN.props = $('rnProps');
+  let front = '';
+  const fc = ['#e8e4da', '#1a1a1f', '#2f4f7f', '#d8a93a', '#7a2533', '#5e7d5a'];
+  for (let i = 0; i < 6; i++) front += `<use href="#sedan" color="${fc[i]}" transform="translate(${i * 400 - 60} 792) scale(1.15)"/>`;
+  $('rnFront').innerHTML = front;
+  RN.front = $('rnFront');
+
+  const hitWords = ['ドカッ', 'バキィ', 'ボゴッ', 'ドゴォ', 'ガシャ'];
+  const plan = [];
+  for (let i = 0; i < 12; i++) plan.push({ wx: 1250 + i * 560 + R() * 160, type: 'ped' });
+  plan[4].type = 'wally';
+  plan[7].type = 'stand';
+  plan.forEach((it, i) => {
+    let item;
+    if (it.type === 'stand') {
+      item = { g: add($('rnPeds'), `<g><rect x="-70" y="-60" width="140" height="60" fill="#8b5a2b" stroke="#2a1608" stroke-width="3"/><path d="M-80,-120 H80 L70,-96 H-70 Z" fill="#1f7a5a" stroke="#0c2a1f" stroke-width="3"/><path d="M-66,-96 V-60 M66,-96 V-60" stroke="#2a1608" stroke-width="5"/><g class="fruit"></g></g>`) };
+      const fr = item.g.querySelector('.fruit');
+      item.fruits = [];
+      for (let k = 0; k < 7; k++) {
+        const melon = k % 2 === 0;
+        item.fruits.push({ e: add(fr, melon ? `<g><ellipse rx="22" ry="17" fill="#1f8a3a" stroke="#0b3a18" stroke-width="3"/><path d="M-16,-6 q16,-12 32,0 M-18,5 q18,-10 36,0" stroke="#7fd48f" stroke-width="3" fill="none"/></g>` : `<circle r="11" fill="#ff9a1a" stroke="#8a4400" stroke-width="2.5"/>`), x: -50 + k * 17, y: -72 - (k % 3) * 8, vx: (R() - .4) * 700, vy: 700 + R() * 700, spin: (R() - .5) * 1400 });
+      }
+    } else {
+      const o = it.type === 'wally' ? randomPed(R, { wally: true, kind: 'suit', bottom: '#2d62c8' }) : randomPed(R);
+      item = makePed($('rnPeds'), o);
+    }
+    Object.assign(item, it, {
+      dir: R() < .6 ? -1 : 1, v: 40 + R() * 30, ph: R(),
+      vx: -500 - R() * 500, vy: 950 + R() * 450, spin: (R() < .5 ? -1 : 1) * (500 + R() * 700),
+      toCam: i === 2 || i === 9,
+    });
+    item.th = (item.wx - CAR_FRONT) / RUN_V;
+    const word = hitWords[i % hitWords.length];
+    item.hit = add($('rnHits'), `<g opacity="0"><path d="M0,-70 L18,-24 L66,-40 L32,-4 L72,30 L22,26 L14,74 L-8,32 L-52,58 L-30,14 L-74,-10 L-26,-22 Z" fill="#fff" stroke="#e0003c" stroke-width="5" stroke-linejoin="round"/><text y="12" font-size="40" fill="#e0003c" stroke="#fff" stroke-width="4" text-anchor="middle">${word}</text></g>`);
+    RN.peds.push(item);
+  });
+  for (let i = 0; i < 7; i++) RN.dust.push(add($('rnDust'), `<circle r="24" opacity="0"/>`));
+  for (let i = 0; i < 18; i++) RN.lines.push({ e: add($('rnLines'), `<line x1="0" y1="0" x2="0" y2="0" stroke-width="${2 + R() * 6}"/>`), y: 40 + R() * 660, s: R(), len: 160 + R() * 320 });
+  for (let i = 0; i < 18; i++) {
+    RN.shards.push({ e: add($('rnEmerald'), `<g><path d="M0,-14 L9,0 L0,14 L-9,0 Z" fill="url(#gEmerald)" stroke="#eafff3" stroke-width="2"/><line x1="12" y1="0" x2="${60 + R() * 60}" y2="0" stroke="#5dffa6" stroke-width="4" stroke-opacity=".6"/></g>`), t0: R() * 1.4, y0: 180 + R() * 180, tx: 330 + R() * 240, ty: 490 + R() * 40, s: .9 + R() * .9 });
+  }
+}
+
+/* ---------- 镜头五：议员崩溃 ---------- */
+function buildMad() {
+  let a = '', b = '';
+  for (let i = 0; i < 24; i++) {
+    const a0 = (i / 24) * Math.PI * 2, a1 = ((i + 1) / 24) * Math.PI * 2;
+    const d = `<path d="M0,0 L${(Math.cos(a0) * 1100).toFixed(0)},${(Math.sin(a0) * 1100).toFixed(0)} L${(Math.cos(a1) * 1100).toFixed(0)},${(Math.sin(a1) * 1100).toFixed(0)} Z"/>`;
+    if (i % 2) a += d; else b += d;
+  }
+  $('mdBurst').innerHTML = `<g id="mdBurstA">${a}</g><g id="mdBurstB">${b}</g>`;
+  let rays = '';
+  for (let i = 0; i < 28; i++) { const an = (i / 28) * Math.PI * 2; rays += `<line x1="${(Math.cos(an) * 60).toFixed(0)}" y1="${(Math.sin(an) * 60).toFixed(0)}" x2="${(Math.cos(an) * 400).toFixed(0)}" y2="${(Math.sin(an) * 400).toFixed(0)}"/>`; }
+  $('mdPanelRays').innerHTML = rays;
+}
+
+/* ---------- 「ゴゴゴ」 ---------- */
+const GOGO = [];
+function buildGogo() {
+  [[120, 470], [170, 380], [120, 290], [1180, 500], [1140, 410]].forEach(([x, y], i) => {
+    GOGO.push({ e: add($('gogo'), `<text x="0" y="0" opacity="0">ゴ</text>`), x, y, p: i * .23 });
+  });
+}
+
+/* ---------- 台词：原作第251话 ---------- */
+const LINES = [
+  { a: 5.6, b: 7.8, who: 'w', zh: ['塞…塞车了～', '傍晚下班高峰，挤得水泄不通～'], ja: ['じゅ…渋滞ですゥ〜', '夕ぐれの通勤時間帯はギシギシなんですゥ'] },
+  { a: 7.9, b: 9.3, who: 'd', zh: ['开。'], ja: ['行け'] },
+  { a: 9.4, b: 11.6, who: 'w', zh: ['就…就算您叫我开，', '这样也根本开不动啊…'], ja: ['い…行けといわれても', 'これでは進めません…'] },
+  { a: 11.7, b: 14.4, who: 'd', big: true, zh: ['人行道不是很宽敞吗…', '开。'], ja: ['歩道が広いではないか…行け'] },
+  { a: 14.5, b: 16.9, who: 'w', spiky: true, zh: ['人…人行道～～～？', '上面挤满了下班的人啊啊啊！'], ja: ['ほ歩道〜〜〜？', '仕事帰りの人があふれていますよォォォ'] },
+  { a: 17.0, b: 18.6, who: 'd', zh: ['那又怎样。开。'], ja: ['関係ない　行け'] },
+  { a: 29.6, b: 31.9, who: 'w2', spiky: true, zh: ['我全是照您说的做的！', '您…会饶了我这个小议员的命吧？', '哇哈哈哈哈哈！'] },
+  { a: 32.0, b: 33.0, who: 'd2', zh: ['不会。'] },
+  { a: 33.1, b: 35.0, who: 'w2', spiky: true, zh: ['对…对了！这一定是梦！', '我可是参议员！', '是梦啊！万岁——！'] },
+];
+const BUBBLE_POS = {
+  w: { cx: 965, cy: 128, tx: 930, ty: 222 },
+  d: { cx: 330, cy: 150, tx: 500, ty: 232 },
+  dBig: { cx: 318, cy: 132, tx: 470, ty: 214 },
+  w2: { cx: 330, cy: 120, tx: 480, ty: 250 },
+  d2: { cx: 1055, cy: 382, tx: 1055, ty: 314 },
+};
+/* ---------- 台词气泡 ---------- */
+const BUB = { g: $('bubble'), shape: $('bubbleShape'), zh: $('bubbleZh'), ja: $('bubbleJa'), line: null };
+BUB.tailStroke = document.createElementNS(NS, 'path');
+BUB.tailFill = document.createElementNS(NS, 'path');
+BUB.g.insertBefore(BUB.tailStroke, BUB.shape);
+BUB.g.insertBefore(BUB.tailFill, BUB.zh);
+
+function layoutBubble(L) {
+  const dio = L.who[0] === 'd';
+  const pos = BUBBLE_POS[L.big ? 'dBig' : L.who];
+  const zfs = L.big ? 42 : dio && L.zh[0].length <= 7 ? 40 : 29;
+  const jfs = 17;
+  const ja = L.ja || [];
+  const maxZh = Math.max(...L.zh.map(s => Array.from(s).length));
+  const maxJa = ja.length ? Math.max(...ja.map(s => Array.from(s).length)) : 0;
+  const W = Math.max(maxZh * zfs, maxJa * jfs) + 60;
+  const rows = [];
+  let y = 18 + zfs * .9;
+  L.zh.forEach(() => { rows.push(['zh', y]); y += zfs * 1.28; });
+  y -= zfs * 1.28;
+  if (ja.length) {
+    y += zfs * .3 + 10 + jfs;
+    ja.forEach(() => { rows.push(['ja', y]); y += jfs * 1.45; });
+    y -= jfs * 1.45;
+  }
+  const H = y + (ja.length ? jfs * .35 : zfs * .3) + 18;
+  const x0 = pos.cx - W / 2, y0 = pos.cy - H / 2, x1 = x0 + W, y1 = y0 + H;
+  const fg = dio ? '#ffd400' : '#141018';
+  BUB.zh.innerHTML = ''; BUB.ja.innerHTML = '';
+  BUB.zh.setAttribute('font-size', zfs); BUB.ja.setAttribute('font-size', jfs);
+  BUB.zh.setAttribute('fill', fg); BUB.ja.setAttribute('fill', dio ? '#d9b3ff' : '#5a5060');
+  BUB.zh.setAttribute('stroke', dio ? '#3a0060' : 'none'); BUB.zh.setAttribute('stroke-width', dio ? 3 : 0);
+  rows.forEach(([kind, dy]) => add(kind === 'zh' ? BUB.zh : BUB.ja, `<tspan x="${pos.cx}" y="${(y0 + dy).toFixed(1)}"></tspan>`));
+  const fill = dio ? '#0b0312' : '#fff';
+  const stroke = dio ? '#ffd400' : L.spiky ? '#e0003c' : '#141018';
+  for (const e of [BUB.shape, BUB.tailStroke, BUB.tailFill]) e.setAttribute('fill', fill);
+  BUB.shape.setAttribute('stroke', stroke); BUB.shape.setAttribute('stroke-width', 4); BUB.shape.setAttribute('stroke-linejoin', 'round');
+  BUB.tailStroke.setAttribute('stroke', stroke); BUB.tailStroke.setAttribute('stroke-width', 4);
+  BUB.shape.setAttribute('filter', dio ? 'url(#fGlow)' : '');
+  if (L.spiky) {
+    const rx = W / 2 + 26, ry = H / 2 + 24, n = 28;
+    const ang = Math.atan2(pos.ty - pos.cy, pos.tx - pos.cx);
+    let best = 0, bd = 9;
+    for (let i = 0; i < n; i++) { const d = Math.abs(Math.atan2(Math.sin(i / n * Math.PI * 2 - ang), Math.cos(i / n * Math.PI * 2 - ang))); if (d < bd) { bd = d; best = i; } }
+    let d = '';
+    for (let i = 0; i < n; i++) {
+      const a = i / n * Math.PI * 2, r = i % 2 ? 1.14 : .96;
+      const px = i === best ? pos.tx : pos.cx + Math.cos(a) * rx * r, py = i === best ? pos.ty : pos.cy + Math.sin(a) * ry * r;
+      d += (i ? 'L' : 'M') + px.toFixed(1) + ',' + py.toFixed(1);
+    }
+    BUB.shape.setAttribute('d', d + 'Z');
+    BUB.tailStroke.setAttribute('d', ''); BUB.tailFill.setAttribute('d', '');
+  } else {
+    const r = 26;
+    BUB.shape.setAttribute('d', `M${x0 + r},${y0} H${x1 - r} Q${x1},${y0} ${x1},${y0 + r} V${y1 - r} Q${x1},${y1} ${x1 - r},${y1} H${x0 + r} Q${x0},${y1} ${x0},${y1 - r} V${y0 + r} Q${x0},${y0} ${x0 + r},${y0} Z`);
+    const below = pos.ty > y1, by = below ? y1 - 3 : y0 + 3, bx = clamp(pos.tx, x0 + 44, x1 - 44);
+    const tri = `M${bx - 16},${by} L${pos.tx},${pos.ty} L${bx + 16},${by} Z`;
+    BUB.tailStroke.setAttribute('d', tri);
+    BUB.tailFill.setAttribute('d', `M${bx - 12},${by + (below ? -3 : 3)} L${pos.tx},${pos.ty + (below ? -7 : 7)} L${bx + 12},${by + (below ? -3 : 3)} Z`);
+  }
+  return pos;
+}
+
+function renderBubble(t) {
+  const L = LINES.find(l => t >= l.a && t < l.b);
+  if (!L) { op(BUB.g, 0); BUB.line = null; return; }
+  if (BUB.line !== L) { BUB.pos = layoutBubble(L); BUB.line = L; }
+  const k = clamp((t - L.a) / Math.max(.3, Math.min(1.1, (L.b - L.a) * .45)));
+  const reveal = (textEl, lines) => {
+    const total = lines.reduce((n, s) => n + Array.from(s).length, 0);
+    let left = Math.round(total * k);
+    textEl.querySelectorAll('tspan').forEach((ts, i) => {
+      const chars = Array.from(lines[i]);
+      ts.textContent = chars.slice(0, Math.max(0, left)).join('');
+      left -= chars.length;
+    });
+  };
+  reveal(BUB.zh, L.zh);
+  reveal(BUB.ja, L.ja || []);
+  const pk = easeBack(seg(t, L.a, L.a + .2)), out = 1 - seg(t, L.b - .12, L.b);
+  const { cx, cy } = BUB.pos;
+  const jit = L.spiky ? wave(t, 13) * 2 : 0;
+  tf(BUB.g, `translate(${cx + jit} ${cy}) scale(${lerp(.55, 1, pk).toFixed(3)}) translate(${-cx} ${-cy})`);
+  op(BUB.g, Math.min(1, pk * 1.6) * out);
+}
+
+/* ---------- 共用效果 ---------- */
+function renderGogo(t, level) {
+  GOGO.forEach(g => {
+    const ph = (t * .8 + g.p) % 1;
+    const s = .8 + ph * .5;
+    tf(g.e, `translate(${(g.x + wave(t, 7, g.p) * 4).toFixed(1)} ${(g.y - ph * 70).toFixed(1)}) scale(${s.toFixed(2)})`);
+    op(g.e, level * Math.sin(ph * Math.PI));
+  });
+}
+function wilsonFace(eyes, mouth, gloom, t) {
+  show($('wEyesN'), eyes === 'N'); show($('wEyesW'), eyes === 'W'); show($('wEyesC'), eyes === 'C');
+  show($('wMouthN'), mouth === 'N'); show($('wMouthS'), mouth === 'S'); show($('wMouthC'), mouth === 'C');
+  op($('wGloom'), gloom ? 1 : 0);
+  Array.from($('wSweat').children).forEach((d, i) => {
+    const ph = (t * 1.3 + i * .27) % 1;
+    tf(d, `translate(0 ${(ph * 34).toFixed(1)})`); op(d, 1 - ph);
+  });
+}
+const camFocus = (e, fx, fy, s, jx = 0, jy = 0) => tf(e, `translate(${(640 + jx).toFixed(1)} ${(360 + jy).toFixed(1)}) scale(${s.toFixed(3)}) translate(${-fx} ${-fy})`);
+const setWorldFilter = id => (id ? $('world').setAttribute('filter', `url(#${id})`) : $('world').removeAttribute('filter'));
+const spinWheels = deg => document.querySelectorAll('#limoArt .spokes').forEach(s => tf(s, `rotate(${(deg % 360).toFixed(1)})`));
+
+/* ---------- 镜头一 / 三：街道 ---------- */
+const wrapX = x => ((x + 60) % 1400 + 1400) % 1400 - 60;
+const pedX = (p, t) => wrapX(p.x0 + p.dir * p.v * t);
+function limoTurn(u) {
+  const e = easeInOut(seg(u, .45, 1.15));
+  const go = easeIn(seg(u, 1.1, 2.5));
+  return {
+    x: 430 + 150 * e + 1800 * go,
+    y: 592 + 76 * e,
+    s: .72 + .08 * e,
+    rot: -2.5 * Math.sin(Math.PI * seg(u, 0, .45)) - 5 * Math.sin(Math.PI * seg(u, .72, 1.02)) + 2 * Math.sin(Math.PI * seg(u, 1.02, 1.3)),
+  };
+}
+function precomputeTurnHits() {
+  ST.near.forEach(p => {
+    p.th = null;
+    for (let u = .95; u <= 3; u += .005) {
+      const L = limoTurn(u), front = L.x + 748 * L.s, px = pedX(p, 18.6 + u);
+      if (px > -40 && px < 1320 && front >= px - 10 && L.x + 40 < px) { p.th = u; p.hx = px; break; }
+    }
+  });
+}
+function renderStreet(t, u) {
+  ST.far.forEach(p => posePed(p, pedX(p, t), p.y, .32, t * 1.6 + p.ph, 0, p.dir));
+  const L = u == null ? null : limoTurn(u);
+  const front = L ? L.x + 748 * L.s : 0;
+  ST.near.forEach(p => {
+    if (L && p.th != null && u >= p.th) {
+      const tau = u - p.th;
+      show(p.g, tau < 1.8);
+      const x = p.hx + (p.fly[0] + 650) * tau, y = p.y - (p.fly[1] * tau - 700 * tau * tau);
+      posePed(p, x, y, .62 * (1 + tau * .3), .25, p.fly[2] * tau, p.dir);
+      op(p.shock, 1);
+      return;
+    }
+    show(p.g, true);
+    const x = pedX(p, t);
+    const near = L && u > .35 && front > x - 300;
+    const hop = near ? Math.abs(Math.sin(t * 9 + p.ph * 6)) * 18 : 0;
+    posePed(p, x, p.y - hop, .62, near ? .12 : t * 1.5 + p.ph, 0, near ? (x > L.x + 300 ? -1 : 1) : p.dir);
+    op(p.shock, near ? 1 : 0);
+  });
+  ST.honks.forEach(h => {
+    const k = t - h.t, on = k >= 0 && k <= .75;
+    op(h.e, on ? 1 - seg(k, .55, .75) : 0);
+    if (on) tf(h.e, `translate(${h.x} ${h.y}) scale(${lerp(.4, 1, easeBack(seg(k, 0, .16))).toFixed(3)}) rotate(${(wave(t, 11) * 4).toFixed(1)}) translate(${-h.x} ${-h.y})`);
+  });
+}
+
+function shotJam(t) {
+  const k = t / 5;
+  camFocus($('stCam'), 640, 420 - 60 * k, 1 + .06 * easeInOut(k));
+  tf($('stLimo'), `translate(430 ${(592 + wave(t, 14) * .7).toFixed(2)}) scale(.72)`);
+  spinWheels(0);
+  renderStreet(t, null);
+  ST.smoke.forEach(s => op(s, 0));
+  op($('stScreech'), 0); op($('stDodo'), 0); op($('stLines'), 0);
+  op($('caption'), seg(t, .3, .8) * (1 - seg(t, 4.4, 4.9)));
+}
+
+function shotTurn(t) {
+  const u = t - 18.6;
+  const L = limoTurn(u);
+  const shake = u > 1 ? 5 * (1 - seg(u, 2.4, 3)) : u > .4 ? 2 : 0;
+  camFocus($('stCam'), 640, 400, 1.06, wave(t, 17) * shake, wave(t, 23, .3) * shake);
+  tf($('stLimo'), `translate(${L.x.toFixed(1)} ${L.y.toFixed(1)}) rotate(${L.rot.toFixed(2)} ${(L.s * 157).toFixed(1)} 0) scale(${L.s.toFixed(3)})`);
+  spinWheels(u > .45 ? (L.x - 430) * 1.4 + u * 900 : u * 1600);
+  renderStreet(t, u);
+  const rearX = L.x + 157 * L.s, rearY = L.y - 10;
+  ST.smoke.forEach((s, i) => {
+    const age = u - i * .16;
+    const on = age > 0 && age < .9 && u < 1.6;
+    op(s, on ? .85 * (1 - age / .9) : 0);
+    if (on) { s.setAttribute('cx', (rearX - age * 110 - i * 6).toFixed(1)); s.setAttribute('cy', (rearY - age * 50).toFixed(1)); s.setAttribute('r', (14 + age * 56).toFixed(1)); }
+  });
+  const sc = $('stScreech');
+  op(sc, seg(u, .02, .12) * (1 - seg(u, .9, 1.1)));
+  tf(sc, `translate(${(wave(t, 19) * 4).toFixed(1)} ${(wave(t, 29) * 3).toFixed(1)})`);
+  const dd = $('stDodo');
+  op(dd, seg(u, 1.2, 1.4));
+  tf(dd, `translate(${(wave(t, 21) * 6).toFixed(1)} ${(wave(t, 27) * 4).toFixed(1)})`);
+  const lk = seg(u, 1.15, 1.4);
+  op($('stLines'), lk * .8);
+  ST.lines.forEach(l => {
+    const x = 1400 - ((u * 2600 * (.7 + l.s) + l.s * 3000) % 1800);
+    l.e.setAttribute('x1', x.toFixed(0)); l.e.setAttribute('x2', (x + 200 + l.s * 260).toFixed(0));
+    l.e.setAttribute('y1', l.y.toFixed(0)); l.e.setAttribute('y2', l.y.toFixed(0));
+  });
+}
+
+/* ---------- 镜头二：车内 ---------- */
+function shotCabin(t) {
+  const L = LINES.find(l => t >= l.a && t < l.b);
+  const dioTalking = L && L.who === 'd';
+  const big = L && L.big;
+  const scream = L && L.spiky;
+  if (big) {
+    const k = easeOut(seg(t, L.a, L.a + .28));
+    const s = lerp(1, 1.95, k) + (t - L.a) * .04;
+    camFocus($('cbCam'), lerp(640, 610, k), lerp(360, 250, k), s);
+  } else if (L && L.who === 'w') {
+    const k = easeInOut(seg(t, L.a, L.a + .5));
+    const j = scream ? 5 : 0;
+    camFocus($('cbCam'), lerp(640, 730, k), lerp(360, 340, k), lerp(1, 1.07, k), wave(t, 19) * j, wave(t, 23) * j);
+  } else {
+    camFocus($('cbCam'), 640, 360, 1 + (t - 5) * .002);
+  }
+  const trem = scream ? 4 : 1.2;
+  tf($('cbWilson'), `translate(${(915 + wave(t, 17) * trem).toFixed(1)} ${(336 + wave(t, 13, .4) * trem * .6).toFixed(1)}) scale(1.12)`);
+  if (scream) wilsonFace('W', 'S', true, t);
+  else if (L && L.who === 'd' && t > 17) wilsonFace('W', 'N', true, t);
+  else wilsonFace('N', 'N', false, t);
+  const pulse = .75 + .25 * wave(t, 2.2);
+  op($('dioGlow'), dioTalking ? pulse : .18);
+  op($('cbAura'), dioTalking ? .38 * pulse : .08);
+  renderGogo(t, dioTalking ? 1 : 0);
+  tf($('cbGlare'), `translate(${(wave(t, .15) * 30).toFixed(1)} 0)`);
+  if (big) {
+    const f = t - L.a;
+    op($('flash'), f < .1 ? .85 : 0);
+    setWorldFilter(f > .06 && f < .22 ? 'fNega' : null);
+  }
+}
+/* ---------- 镜头四 / 六：人行道跟拍 ---------- */
+const FREEZE = 36.5;
+const runTime = t => Math.min(t, FREEZE) - 21.6;
+const STAND_HALF = 63;
+const hitTime = p => (p.wx - (p.type === 'stand' ? STAND_HALF : 0) - CAR_FRONT) / (RUN_V - p.dir * (p.type === 'stand' ? 0 : p.v));
+function shotRun(t) {
+  const us = runTime(t), off = RUN_V * us, frozen = t >= FREEZE, emerald = t >= 35;
+  tf(RN.far, `translate(${(-(off * .08) % 1600).toFixed(1)} 0)`);
+  tf(RN.bldg, `translate(${(-(off * .4) % 1400).toFixed(1)} 0)`);
+  $('pTilesRun').setAttribute('patternTransform', `translate(${(-off % 120).toFixed(1)} 0)`);
+  tf(RN.props, `translate(${(-off % 520).toFixed(1)} 0)`);
+  tf(RN.front, `translate(${(-(off * 1.25) % 400).toFixed(1)} 0)`);
+  const sh = frozen ? 0 : 3;
+  tf($('rnCam'), `translate(${(wave(t, 17) * sh).toFixed(1)} ${(wave(t, 23, .3) * sh).toFixed(1)})`);
+  let kick = 0, standTh = Infinity;
+  const wally = $('rnWally');
+  op(wally, 0);
+  RN.peds.forEach((p, i) => {
+    const th = hitTime(p), tau = us - th;
+    if (p.type === 'stand') standTh = th;
+    if (tau < 0) {
+      op(p.hit, 0);
+      const x = p.wx + p.dir * (p.type === 'stand' ? 0 : p.v) * us - off;
+      show(p.g, x < 1400);
+      if (x >= 1400) return;
+      op(p.g, 1);
+      if (p.type === 'stand') {
+        tf(p.g, `translate(${x.toFixed(1)} 628) scale(.9)`);
+        p.fruits.forEach(f => tf(f.e, `translate(${f.x} ${f.y})`));
+      } else {
+        posePed(p, x, 628, .85, us * 1.6 + p.ph, 0, p.dir);
+        op(p.shock, -tau < .4 ? 1 : 0);
+      }
+      return;
+    }
+    if (tau < .6) kick += Math.exp(-tau * 9) * Math.sin(tau * 38) * 2.2;
+    const hk = seg(tau, 0, .15);
+    op(p.hit, tau < .45 ? 1 - seg(tau, .25, .45) : 0);
+    tf(p.hit, `translate(${CAR_FRONT + 40} ${470 + (i % 3) * 34}) rotate(${(i * 37) % 30 - 15}) scale(${lerp(.3, 1.1, easeBack(hk)).toFixed(3)})`);
+    if (p.type === 'stand') {
+      const x = CAR_FRONT + STAND_HALF - 200 * tau, y = 628 - (520 * tau - 760 * tau * tau);
+      show(p.g, tau < 1.8); op(p.g, 1);
+      tf(p.g, `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(-320 * tau).toFixed(1)}) scale(.9)`);
+      p.fruits.forEach(f => tf(f.e, `translate(${(f.x + f.vx * tau).toFixed(1)} ${(f.y - (f.vy * tau - 900 * tau * tau)).toFixed(1)}) rotate(${(f.spin * tau).toFixed(0)})`));
+      return;
+    }
+    let x = CAR_FRONT + p.vx * tau, y = 628 - (p.vy * tau - 420 * tau * tau), s = .85 * (1 + tau * .45);
+    let alpha = 1;
+    if (p.toCam) {
+      const k = easeOut(clamp(tau / .8));
+      x = lerp(CAR_FRONT, 700, k); y = lerp(628, 520, k) + 200 * k; s = .85 * (1 + tau * 4.5);
+      alpha = 1 - seg(tau, .5, .8);
+    }
+    show(p.g, tau < 2.2 && y < 1000 && x > -300); op(p.g, alpha);
+    posePed(p, x, y, s, .25, p.spin * tau, p.dir);
+    op(p.shock, 1);
+    if (p.type === 'wally' && tau > .12 && tau < 1.7) {
+      op(wally, 1 - seg(tau, 1.4, 1.7));
+      wally.setAttribute('x', (x + 50).toFixed(0)); wally.setAttribute('y', (y - 250 * s).toFixed(0));
+    }
+  });
+  op($('rnSplats'), us >= standTh ? 1 : 0);
+  tf($('rnBody'), `translate(0 ${(wave(us, 5.5) * 3 + kick * 2).toFixed(2)}) rotate(${(wave(us, 3.3) * .6 + kick).toFixed(2)} 376 -40)`);
+  spinWheels(off / 34 * 57.3);
+  op($('rnBeam'), .62 + .1 * wave(us, 9));
+  RN.dust.forEach((d, i) => {
+    const age = (us * 2.2 + i / 7) % 1;
+    d.setAttribute('cx', (250 - age * 330).toFixed(1)); d.setAttribute('cy', (614 - age * 36).toFixed(1));
+    d.setAttribute('r', (10 + age * 44).toFixed(1)); op(d, (1 - age) * .75);
+  });
+  RN.lines.forEach(l => {
+    const x = 1400 - ((us * 2400 * (.6 + l.s) + l.s * 4000) % 1900);
+    l.e.setAttribute('x1', x.toFixed(0)); l.e.setAttribute('x2', (x + l.len).toFixed(0));
+    l.e.setAttribute('y1', l.y.toFixed(0)); l.e.setAttribute('y2', l.y.toFixed(0));
+  });
+  op($('rnLines'), frozen ? .35 : .7);
+  const dd = $('rnDodo');
+  op(dd, emerald ? 0 : seg(us, 0, .3));
+  tf(dd, `translate(${(wave(t, 21) * 6).toFixed(1)} ${(wave(t, 27) * 4).toFixed(1)})`);
+  wilsonFace('W', 'S', true, t);
+  op($('dioGlow'), .6);
+
+  const te = Math.min(t, FREEZE) - 35;
+  RN.shards.forEach(s => {
+    const loc = te - s.t0;
+    if (!emerald || loc < 0) { op(s.e, 0); return; }
+    const k = clamp(loc / .55);
+    const x = lerp(1340, s.tx, k), y = lerp(s.y0, s.ty, k) - Math.sin(k * Math.PI) * 40;
+    const ang = Math.atan2(s.ty - s.y0, s.tx - 1340) * 57.3 + 180;
+    op(s.e, k < 1 ? 1 : 1 - seg(loc, .55, .8));
+    tf(s.e, `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)}) scale(${s.s.toFixed(2)})`);
+  });
+  const et = $('rnEmText');
+  op(et, emerald ? seg(te, .1, .25) : 0);
+  tf(et, `translate(640 140) scale(${lerp(.5, 1, easeBack(seg(te, .1, .3))).toFixed(3)}) translate(-640 -140)`);
+  if (emerald && te > 1.25 && te < 1.45) { $('flash').setAttribute('fill', '#7dffb4'); op($('flash'), .55); }
+  if (frozen) {
+    setWorldFilter('fSepia');
+    const k = easeOut(seg(t, FREEZE + .15, FREEZE + .65));
+    op($('tbc'), k > 0 ? 1 : 0);
+    tf($('tbc'), `translate(${((1 - k) * 720).toFixed(1)} 0)`);
+  }
+}
+
+/* ---------- 镜头五：议员崩溃 ---------- */
+function shotMad(t) {
+  const u = t - 29.4, crazy = t >= 33.1, denied = t >= 32 && t < 33.1;
+  const rot = 18 * Math.min(u, 2.6) + 4 * clamp(u - 2.6, 0, 1.1) + 90 * Math.max(0, u - 3.7);
+  tf($('mdBurst'), `translate(640 380) rotate(${rot.toFixed(1)})`);
+  let A = '#ff3fa4', B = '#ffd23f';
+  if (denied) { A = '#2a0a4a'; B = '#12031f'; }
+  if (crazy) [A, B] = [['#ff3fa4', '#3fffd2'], ['#ffd23f', '#a23fff'], ['#3fffd2', '#ff3fa4'], ['#a23fff', '#ffd23f']][Math.floor(t / .14) % 4];
+  $('mdBurstA').setAttribute('fill', A); $('mdBurstB').setAttribute('fill', B);
+  if (crazy) wilsonFace('C', 'C', false, t);
+  else if (denied) wilsonFace('W', 'S', true, t);
+  else wilsonFace('W', 'C', false, t);
+  const trem = crazy ? 5 : denied ? 3 : 2;
+  const zoom = 2.3 + (denied ? .25 * easeOut(seg(t, 32, 32.4)) : 0) + (crazy ? .1 * wave(t, 1.5) : 0);
+  tf($('mdWilson'), `translate(${(640 + wave(t, 15) * trem).toFixed(1)} ${(390 + wave(t, 12, .3) * trem).toFixed(1)}) rotate(${(crazy ? wave(t, 3) * 5 : 0).toFixed(1)}) scale(${zoom.toFixed(3)})`);
+  const pin = easeOut(seg(t, 31.85, 32.15)), pout = seg(t, 33, 33.2);
+  op($('mdPanel'), pin * (1 - pout));
+  tf($('mdPanel'), `translate(${((1 - pin) * 420).toFixed(1)} 0)`);
+  tf($('mdPanelRays'), `translate(1055 200) rotate(${(t * 30).toFixed(1)})`);
+  op($('dioGlow'), .95);
+  const lg = $('mdLaugh');
+  let on = 0;
+  if (t >= 30.9 && t < 31.85) { lg.textContent = 'ワハハハハハ'; on = 1; }
+  if (t >= 34) { lg.textContent = 'バンザーイ！！'; on = 1; }
+  op(lg, on);
+  tf(lg, `translate(${(370 + wave(t, 13) * 6).toFixed(1)} ${(100 + wave(t, 9) * 5).toFixed(1)}) rotate(-7 640 120)`);
+  if (t >= 32 && t < 32.08) op($('flash'), .5);
+}
+
+/* ---------- 音效（WebAudio 合成，需要点按钮开启） ---------- */
+const AU = { ctx: null, on: false };
+function audio() {
+  if (AU.ctx) return AU.ctx;
+  const C = window.AudioContext || window.webkitAudioContext;
+  if (!C) return null;
+  const c = AU.ctx = new C();
+  AU.out = c.createGain(); AU.out.gain.value = .45; AU.out.connect(c.destination);
+  AU.noise = c.createBuffer(1, c.sampleRate, c.sampleRate);
+  const d = AU.noise.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  AU.eng = c.createOscillator(); AU.eng.type = 'sawtooth'; AU.eng.frequency.value = 45;
+  const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 420;
+  AU.engG = c.createGain(); AU.engG.gain.value = 0;
+  AU.eng.connect(lp).connect(AU.engG).connect(AU.out); AU.eng.start();
+  return c;
+}
+function envelope(g, t0, peak, dur) {
+  g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(peak, t0 + .012); g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+}
+function tone(type, f0, f1, dur, peak) {
+  const c = AU.ctx, t0 = c.currentTime, o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.setValueAtTime(f0, t0); o.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
+  envelope(g, t0, peak, dur); o.connect(g).connect(AU.out); o.start(t0); o.stop(t0 + dur + .05);
+}
+function hiss(type, f0, f1, q, dur, peak) {
+  const c = AU.ctx, t0 = c.currentTime, s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+  s.buffer = AU.noise; s.loop = true; f.type = type; f.Q.value = q;
+  f.frequency.setValueAtTime(f0, t0); f.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
+  envelope(g, t0, peak, dur); s.connect(f).connect(g).connect(AU.out); s.start(t0); s.stop(t0 + dur + .05);
+}
+const SFX = {
+  honk: () => { tone('square', 392, 390, .34, .1); tone('square', 494, 492, .34, .08); },
+  rumble: () => { tone('sine', 58, 36, 1.5, .55); tone('triangle', 87, 58, 1.2, .16); },
+  punch: () => { tone('sawtooth', 240, 50, .4, .28); hiss('lowpass', 3000, 250, 1, .3, .45); },
+  screech: () => hiss('bandpass', 2700, 1700, 9, 1.05, .5),
+  thud: () => { tone('sine', 150, 40, .25, .7); hiss('lowpass', 900, 200, 1, .16, .5); },
+  whoosh: () => hiss('highpass', 700, 5200, 1, .45, .32),
+  scratch: () => { hiss('bandpass', 400, 3200, 4, .12, .6); setTimeout(() => AU.on && hiss('bandpass', 3200, 300, 4, .2, .6), 130); },
+};
+const CUES = [];
+function buildCues() {
+  ST.honks.forEach(h => CUES.push([h.t, 'honk']));
+  [7.9, 11.7, 17, 32].forEach(t => CUES.push([t, 'rumble']));
+  CUES.push([11.7, 'punch'], [18.62, 'screech'], [35.1, 'whoosh'], [35.5, 'whoosh'], [35.9, 'whoosh'], [FREEZE, 'scratch']);
+  ST.near.forEach(p => p.th != null && CUES.push([18.6 + p.th, 'thud']));
+  RN.peds.forEach(p => CUES.push([21.6 + hitTime(p), 'thud']));
+}
+function fireCues(a, b) {
+  if (!AU.on || !AU.ctx) return;
+  CUES.forEach(([t, name]) => { if (t > a && t <= b) SFX[name](); });
+}
+function engineLevel(t) {
+  if (t < 5) return [.04, 42];
+  if (t >= 18.9 && t < 21.6) return [.16, 60 + (t - 18.9) * 40];
+  if ((t >= 21.6 && t < 29.4) || (t >= 35 && t < FREEZE)) return [.2, 150 + wave(t, 7) * 10];
+  return [0, 45];
+}
+
+/* ---------- 时间轴与控制 ---------- */
+const SHOTS = [
+  { a: 0, b: 5, scene: 'sStreet', fn: shotJam },
+  { a: 5, b: 18.6, scene: 'sCabin', fn: shotCabin },
+  { a: 18.6, b: 21.6, scene: 'sStreet', fn: shotTurn },
+  { a: 21.6, b: 29.4, scene: 'sRun', fn: shotRun },
+  { a: 29.4, b: 35, scene: 'sMad', fn: shotMad },
+  { a: 35, b: TOTAL, scene: 'sRun', fn: shotRun },
+];
+let T = 0, playing = true, dragging = false, lastNow = performance.now();
+const btnPlay = $('btnPlay'), seek = $('seek'), clock = $('clock');
+const chips = Array.from(document.querySelectorAll('#chapters button'));
+const setPlaying = p => { playing = p; btnPlay.textContent = p ? '❚❚ 暂停' : '▶ 播放'; };
+
+function render(t) {
+  const shot = SHOTS.find(s => t >= s.a && t < s.b) || SHOTS[SHOTS.length - 1];
+  for (const id of ['sStreet', 'sCabin', 'sRun', 'sMad']) show($(id), id === shot.scene);
+  setWorldFilter(null);
+  $('flash').setAttribute('fill', '#fff'); op($('flash'), 0);
+  op($('caption'), 0); op($('tbc'), 0);
+  renderGogo(t, 0);
+  shot.fn(t);
+  renderBubble(t);
+  if (!dragging) seek.value = t.toFixed(2);
+  clock.textContent = `${t.toFixed(1)} / ${TOTAL.toFixed(1)}s`;
+  let cur = 0;
+  chips.forEach((b, i) => { if (t >= +b.dataset.t) cur = i; });
+  chips.forEach((b, i) => b.classList.toggle('on', i === cur));
+}
+
+function frame(now) {
+  const dt = Math.min(.05, (now - lastNow) / 1000);
+  lastNow = now;
+  if (playing && !dragging) {
+    const prev = T;
+    T += dt;
+    if (T >= TOTAL) T = 0; else fireCues(prev, T);
+  }
+  render(T);
+  if (AU.ctx) {
+    const [g, f] = engineLevel(T), n = AU.ctx.currentTime;
+    AU.engG.gain.setTargetAtTime(AU.on && playing ? g : 0, n, .08);
+    AU.eng.frequency.setTargetAtTime(f, n, .12);
+  }
+  requestAnimationFrame(frame);
+}
+
+btnPlay.addEventListener('click', () => setPlaying(!playing));
+$('btnRestart').addEventListener('click', () => { T = 0; setPlaying(true); });
+seek.addEventListener('input', () => { T = +seek.value; });
+seek.addEventListener('pointerdown', () => { dragging = true; });
+window.addEventListener('pointerup', () => { dragging = false; });
+chips.forEach(b => b.addEventListener('click', () => { T = +b.dataset.t + .001; setPlaying(true); }));
+$('btnSound').addEventListener('click', () => {
+  AU.on = !AU.on;
+  if (AU.on && audio()) AU.ctx.resume();
+  $('btnSound').textContent = AU.on ? '♪ 音效：开' : '♪ 音效：关';
+});
+window.addEventListener('keydown', e => {
+  if (e.target === seek && e.code !== 'Space') return;
+  if (e.code === 'Space') { e.preventDefault(); setPlaying(!playing); }
+  if (e.code === 'ArrowRight') T = Math.min(TOTAL - .01, T + 2);
+  if (e.code === 'ArrowLeft') T = Math.max(0, T - 2);
+});
+
+add(document.querySelector('#svg > defs'), '<filter id="fNega" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/><feColorMatrix type="hueRotate" values="180"/></filter>');
+buildStreet();
+buildRun();
+buildMad();
+buildGogo();
+precomputeTurnHits();
+buildCues();
+const startAt = parseFloat(new URLSearchParams(location.search).get('t'));
+if (startAt >= 0 && startAt < TOTAL) T = startAt;
+if (new URLSearchParams(location.search).has('pause')) setPlaying(false);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -1166,7 +1166,8 @@ const chips = Array.from(document.querySelectorAll('#chapters button'));
 const setPlaying = p => { playing = p; btnPlay.textContent = p ? '❚❚ 暂停' : '▶ 播放'; };
 
 function render(t) {
-  const shot = SHOTS.find(s => t >= s.a && t < s.b) || SHOTS[SHOTS.length - 1];
+  t = clamp(t, 0, TOTAL - .001);
+  const shot = SHOTS.find(s => t >= s.a && t < s.b);
   for (const id of ['sStreet', 'sCabin', 'sRun', 'sMad']) show($(id), id === shot.scene);
   setWorldFilter(null);
   $('flash').setAttribute('fill', '#fff'); op($('flash'), 0);
@@ -1182,7 +1183,7 @@ function render(t) {
 }
 
 function frame(now) {
-  const dt = Math.min(.05, (now - lastNow) / 1000);
+  const dt = clamp((now - lastNow) / 1000, 0, .05);
   lastNow = now;
   if (playing && !dragging) {
     const prev = T;
